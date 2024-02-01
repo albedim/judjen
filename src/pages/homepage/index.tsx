@@ -15,8 +15,8 @@ const HomePage = () => {
               <Avatar
                 size={14}
                 name="Maria Mitchell"
-                variant="marble"
-                colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
+                variant="beam"
+                colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
               />
             </div>
             <div className="pl-2"><p className="text-[gray] hover:underline font-cubito">User #4545</p></div>
