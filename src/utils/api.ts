@@ -12,7 +12,7 @@ export const isLoggedIn = async () => {
     isLoggedIn_ = false;
   }
 
-  await axios.post(BASE_URL + "/users/sync", { 
+  await axios.post(BASE_URL + "/users/sync", {}, { 
     headers: { 
       Authorization: "Bearer " + cookie 
     }
