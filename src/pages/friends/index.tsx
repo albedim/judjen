@@ -3,9 +3,16 @@ import { useEffect, useState } from "react"
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io"
 import { Link, useNavigate } from "react-router-dom"
 import { SpinnerCircular } from "spinners-react"
-import { Friend } from "../../typos/interfaces"
+import { Friend, ReceivedFriendRequest, SentFriendRequest } from "../../typos/interfaces"
 import axios from "axios"
+import { PiSmileySadLight } from 'react-icons/pi'
 import { BASE_URL, getCookie, isLoggedIn, setCookie } from "../../utils/api"
+import NotFound from "../../components/notfound"
+import { FaRegTrashCan } from "react-icons/fa6"
+import FriendComponent from "../../components/user/friend"
+import SentFriendRequestComponent from "../../components/user/sent_request_friend"
+import ReceivedFriendRequestComponent from "../../components/user/received_request_friend"
+import { cutString } from "../../utils/str"
 
 interface FriendsProps{
   subpage: "friends" | "sent_requests" | "received_requests"
@@ -14,11 +21,13 @@ interface FriendsProps{
 const Friends: React.FC<FriendsProps> = ( props ) => {
 
   const [newFriend, setNewFriend] = useState("")
+  const [isRemovingFriendLoading, setIsRemovingFriendLoading] = useState(false)
   const navigate = useNavigate()
   const [receivedFriendRequestsN, setReceivedFriendRequestsN] = useState(0)
+  const [users, setUsers] = useState<Friend[]>([])
   const [friends, setFriends] = useState<undefined | Friend[]>([])
-  const [sentFriendRequests, setSentFriendRequests] = useState<undefined | Friend[]>([])
-  const [receivedFriendRequests, setReceivedFriendRequests] = useState<undefined | Friend[]>([])
+  const [sentFriendRequests, setSentFriendRequests] = useState<undefined | SentFriendRequest[]>([])
+  const [receivedFriendRequests, setReceivedFriendRequests] = useState<undefined | ReceivedFriendRequest[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -31,7 +40,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
     await axios.get(BASE_URL + "/friends/", { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
     .then(res => {
       setFriends(res.data.param.friends)
-      setReceivedFriendRequestsN(res.data.received_friend_requests)
+      setReceivedFriendRequestsN(res.data.param.received_friend_requests)
     })
     .catch(err => console.log(err))
     setIsLoading(false)
@@ -47,6 +56,17 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
     setIsLoading(false)
   }
 
+  const createFriendRequest = async (friendId: string) => {
+    setIsLoading(true)
+    await axios.post(BASE_URL + "/friends/", { friend_id: friendId }, { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
+    .then(res => {
+      setNewFriend("")
+      getSentFriendRequests()
+    })
+    .catch(err => console.log(err))
+    setIsLoading(false)
+  }
+
   const getReceivedFriendRequests = async () => {
     setIsLoading(true)
     await axios.get(BASE_URL + "/friends/received", { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
@@ -57,20 +77,10 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
     setIsLoading(false)
   }
 
-  const acceptRequest = async ( userId: string ) => {
-    setIsLoading(true)
-    await axios.post(BASE_URL + "/friends/accept", { user_id: userId }, { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
-    .then(res => getReceivedFriendRequests())
+  const getUsers = async (name: string) => {
+    await axios.get(BASE_URL + "/users/query?name=" + name, { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
+    .then(res => setUsers(res.data.param))
     .catch(err => console.log(err))
-    setIsLoading(false)
-  }
-
-  const rejectRequest = async ( userId: string ) => {
-    setIsLoading(true)
-    await axios.post(BASE_URL + "/friends/reject", { user_id: userId }, { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
-    .then(res => getReceivedFriendRequests())
-    .catch(err => console.log(err))
-    setIsLoading(false)
   }
 
   const handleAuth = async () => {
@@ -78,7 +88,6 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
       navigate("/")
     }
   }
-
 
   return (
     <div className="p-8">
@@ -93,8 +102,8 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                 <p>Friends</p>
               </li>
             ):(
-              <Link to={"/friends"}>
-                <li onClick={() => getSentFriendRequests()} className="cursor-pointer transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
+              <Link onClick={() => getFriends()} to={"/friends"}>
+                <li className="cursor-pointer transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
                   <p>Friends</p>
                 </li>
               </Link>
@@ -104,8 +113,8 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                 <p>Sent Requests</p>
               </li>
             ):(
-              <Link to={"/friends/requests/sent"}>
-                <li onClick={() => getSentFriendRequests()} className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
+              <Link onClick={() => getSentFriendRequests()} to={"/friends/requests/sent"}>
+                <li className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
                   <p>Sent Requests</p>
                 </li>
               </Link>
@@ -113,13 +122,17 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
             {props.subpage == 'received_requests' ? (
               <li className="cursor-pointer flex text-sm border-b-2 border-[#668AE4] border-b p-2">
                 <p>Received Requests</p>
-                <p className="ml-2 font-semibold text-[#668AE4]" >+{receivedFriendRequestsN}</p>
+                {receivedFriendRequestsN > 0 ? (
+                  <p className="ml-2 font-semibold text-[#668AE4]" >+{receivedFriendRequestsN}</p>
+                ) : null}
               </li>
             ):(
-              <Link to={"/friends/requests/received"}>
-                <li onClick={() => getReceivedFriendRequests()} className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
+              <Link onClick={() => getReceivedFriendRequests()} to={"/friends/requests/received"}>
+                <li className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
                   <p>Received Requests</p>
-                  <p className="ml-2 font-semibold text-[#668AE4]" >+{receivedFriendRequestsN}</p>
+                  {receivedFriendRequestsN > 0 ? (
+                    <p className="ml-2 font-semibold text-[#668AE4]" >+{receivedFriendRequestsN}</p>
+                  ) : null}
                 </li>
               </Link>
             )}
@@ -128,7 +141,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
       </div>
       <div className="mt-8">
         {isLoading ? (
-          <div>
+          <div className="items-center justify-around flex">
             <SpinnerCircular
               color="#668AE4"
               speed={254}
@@ -139,80 +152,26 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
         ):(
           props.subpage == 'friends' ? (
             <div>
-              {friends?.map((friend: Friend) => (
-                <div className="pb-2">
-                  <div className="rounded-lg flex p-4 border">
-                    <div className="items-center justify-around flex">
-                      <Avatar
-                        size={40}
-                        name={friend.anonymous_name}
-                        variant="beam"
-                        colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
-                      />
-                    </div>
-                    <div className="pl-2">
-                      <p className="text-md font-semibold font-cubito">{friend.anonymous_name}</p>
-                      <p className="text-sm text-[gray] font-cubito">Friends from {friend.friended_on}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {friends && friends.length > 0 ? (
+                friends?.map((friend: Friend) => (
+                  <FriendComponent setFriends={(res) => setFriends(res)} friend={friend} />
+                ))
+              ):(
+                <NotFound/>
+              )}
             </div>
           ):(
             props.subpage == 'sent_requests' ? (
               <div>
                 <div>
-                  <input onChange={(e) => setNewFriend(e.target.value)} value={newFriend} placeholder="Add friend..." className="rounded-md p-2 border bg-[#fefefe]" type="text" />
+                  <input onChange={(e) => {
+                    getUsers(e.target.value)
+                    setNewFriend(e.target.value)
+                  }} value={newFriend} placeholder="Add friend..." className="rounded-md p-2 border bg-[#fefefe]" type="text" />
                   <div className="pl-2 rounded-md mt-2 p-4 bg-[#fafafa] border" style={{ display: newFriend != "" ? 'block' : "none" }}>
-                    <div className="pb-2">
-                      <div className="bg-[white] rounded-lg flex p-4 border">
-                        <div className="items-center justify-around flex">
-                          <Avatar
-                            size={40}
-                            name="Maria Mitchell"
-                            variant="beam"
-                            colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
-                          />
-                        </div>
-                        <div className="pl-2">
-                          <p className="text-md font-semibold font-cubito">User 4545</p>
-                          <p className="text-sm text-[gray] font-cubito">fdgdfg fdgdfg df gdf gdfgdfgdf</p>
-                        </div>
-                        <div className="pl-4 items-center justify-around flex">
-                          <div><button><IoIosAddCircleOutline color="green" size={24}/></button></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4">
-                  {sentFriendRequests?.map((friend: Friend) => (
-                    <div className="pb-2">
-                      <div className="rounded-lg flex p-4 border">
-                        <div className="items-center justify-around flex">
-                          <Avatar
-                            size={40}
-                            name="Maria Mitchell"
-                            variant="beam"
-                            colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
-                          />
-                        </div>
-                        <div className="pl-2">
-                          <p className="text-md font-semibold font-cubito">{friend.anonymous_name}</p>
-                          <p className="text-sm text-[gray] font-cubito">{friend.created_on}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ):(
-              props.subpage == 'received_requests' ? (
-                <div>
-                  {receivedFriendRequests?.map((friend: Friend) => (
-                    <div className="pb-2">
-                      <div className="justify-between rounded-lg flex p-4 border">
-                        <div className="flex">
+                    {users.map((user: Friend) => (
+                      <div className="pb-2">
+                        <div className="bg-[white] rounded-lg flex p-4 border">
                           <div className="items-center justify-around flex">
                             <Avatar
                               size={40}
@@ -222,19 +181,42 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                             />
                           </div>
                           <div className="pl-2">
-                            <p className="text-md font-semibold font-cubito">{friend.anonymous_name}</p>
-                            <p className="text-sm text-[gray] font-cubito">Asked on {friend.created_on}</p>
+                            <p className="text-md font-semibold font-cubito">{user.anonymous_name}</p>
+                            <p className="text-sm text-[gray] font-cubito">{cutString(user.bio)}</p>
                           </div>
-                        </div>
-                        <div className="pl-4 items-center justify-around flex">
-                          <div className="flex">
-                            <div className="pr-2"><button onClick={() => acceptRequest(friend.user_id)} ><IoIosAddCircleOutline color="green" size={24}/></button></div>
-                            <div><button><IoIosRemoveCircleOutline color="red" size={24}/></button></div>
+                          <div className="pl-4 items-center justify-around flex">
+                            <div><button onClick={() => createFriendRequest(user.user_id)} ><IoIosAddCircleOutline color="green" size={24}/></button></div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-8">
+                  <div className="border-b pb-2">
+                    <h2 className="text-md font-semibold font-cubito" >Pending requests</h2>
+                  </div>
+                  <div className="mt-4">
+                    {sentFriendRequests && sentFriendRequests.length > 0 ? (
+                      sentFriendRequests?.map((friend: SentFriendRequest) => (
+                        <SentFriendRequestComponent friend={friend}/>
+                      ))
+                    ):(
+                      <NotFound/>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ):(
+              props.subpage == 'received_requests' ? (
+                <div>
+                  {receivedFriendRequests && receivedFriendRequests.length > 0 ? (
+                    receivedFriendRequests?.map((friend: ReceivedFriendRequest) => (
+                      <ReceivedFriendRequestComponent onAction={() => getReceivedFriendRequests()} friend={friend} />
+                    ))
+                  ):(
+                    <NotFound/>
+                  )}
                 </div>
             ):(
               null

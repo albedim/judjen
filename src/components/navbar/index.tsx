@@ -3,12 +3,29 @@ import { MdAccountCircle, MdFavorite, MdPeopleAlt } from 'react-icons/md'
 import { IoIosCreate, IoMdPerson } from 'react-icons/io'
 import { IoLogOut } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
+import { getCookie, getUser } from '../../utils/api'
+import { jwtDecode } from 'jwt-decode'
+import { useEffect, useState } from 'react'
 
 interface NavBarProps {
   page: "stories" | "friends" | "create" | "account" | "logout"
 }
 
 const NavBar: React.FC<NavBarProps> = ( props ) => {
+
+  const [userId, setUserId] = useState("")
+
+  useEffect(() => {
+    getUserId()
+  },[])
+
+  const getUserId = () => {
+    const cookie: any = getCookie("jwt-token")
+    if (cookie) {
+      setUserId(jwtDecode<any>(cookie).sub.user_id)
+    }
+  }
+
   return (
     <div className="h-screen w-64 p-4 border">
         <div className="pt-8 pb-8 border-b">
@@ -67,17 +84,17 @@ const NavBar: React.FC<NavBarProps> = ( props ) => {
         </div>
         <div className='mt-4'>
           <ul>
-            <Link to={"/account"}>
+            <Link to={"/user/" + userId}>
               <li className="cursor-pointer pb-2 align-center flex">
                 {props.page == 'account' ? (
                   <div className='text-[#668AE4] transition-all w-full p-2 flex bg-opacity-10 bg-[#668AE4] rounded-md'>
                     <div className='items-center justify-around flex'><IoMdPerson size={14} /></div>
-                    <p className='font-cabin pl-2' >Account</p>
+                    <p className='font-cabin pl-2' >Profile</p>
                   </div>
                 ):(
                   <div className='hover:text-[#668AE4] transition-all w-full p-2 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'>
                     <div className='items-center justify-around flex'><IoMdPerson size={14} /></div>
-                    <p className='font-cabin pl-2' >Account</p>
+                    <p className='font-cabin pl-2' >Profile</p>
                   </div>
                 )}
               </li>
