@@ -171,18 +171,20 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                   <div className="pl-2 rounded-md mt-2 p-4 bg-[#fafafa] border" style={{ display: newFriend != "" ? 'block' : "none" }}>
                     {users.map((user: Friend) => (
                       <div className="pb-2">
-                        <div className="bg-[white] rounded-lg flex p-4 border">
-                          <div className="items-center justify-around flex">
-                            <Avatar
-                              size={40}
-                              name="Maria Mitchell"
-                              variant="beam"
-                              colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
-                            />
-                          </div>
-                          <div className="pl-2">
-                            <p className="text-md font-semibold font-cubito">{user.anonymous_name}</p>
-                            <p className="text-sm text-[gray] font-cubito">{cutString(user.bio)}</p>
+                        <div className="justify-between bg-[white] rounded-lg flex p-4 border">
+                          <div className="flex">
+                            <div className="items-center justify-around flex">
+                              <Avatar
+                                size={40}
+                                name="Maria Mitchell"
+                                variant="beam"
+                                colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
+                              />
+                            </div>
+                            <div className="pl-2">
+                              <p className="text-md font-semibold font-cubito">{user.anonymous_name}</p>
+                              <p className="text-sm text-[gray] font-cubito">{cutString(user.bio)}</p>
+                            </div>
                           </div>
                           <div className="pl-4 items-center justify-around flex">
                             <div><button onClick={() => createFriendRequest(user.user_id)} ><IoIosAddCircleOutline color="green" size={24}/></button></div>

@@ -7,6 +7,7 @@ import NavBar from './components/navbar';
 import Friends from './pages/friends';
 import Create from './pages/create';
 import User from './pages/users';
+import { isLoggedIn } from './utils/api';
 
 function App() {
   return (
