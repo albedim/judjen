@@ -6,6 +6,7 @@ import { MdCancel } from "react-icons/md"
 import { Link } from "react-router-dom"
 import { BASE_URL, getCookie } from "../../utils/api"
 import { Topic } from "../../typos/interfaces"
+import { SpinnerCircular } from "spinners-react"
 
 const Create = () => {
 
@@ -16,9 +17,13 @@ const Create = () => {
     title: '',
     content: ''
   })
+  const [isLoading, setIsLoading] = useState(false)
  
   const addTopic = (topicId: string) => {
     if (topicId == "null") {
+      return;
+    }
+    if (selectedTopics.length == 3) {
       return;
     }
     const castedTopic: Topic = availableTopics.filter((e) => e.tag_id.toString() == topicId)[0]
@@ -60,9 +65,11 @@ const Create = () => {
   }
 
   const createStory = async () => {
+    setIsLoading(true)
     await axios.post(BASE_URL + "/stories/", { ...story, topics: selectedTopics }, { headers: { Authorization: 'Bearer ' + getCookie("jwt-token") } })
     .then(res => console.log())
     .catch(err => console.log(err))
+    setIsLoading(false)
   }
 
 
@@ -103,10 +110,22 @@ const Create = () => {
         </div>
         <div className="mt-8">
           { selectedTopics.length > 0 && story.title != "" && story.content != "" ? (
-            <button onClick={() => createStory()} className="hover:bg-[#4C73D5] rounded-md text-[white] font-cubito bg-[#668AE4] pr-6 pl-6 p-3" >Create</button>
-          ):(
+              isLoading ? (
+                <button disabled className="rounded-md text-[white] font-cubito bg-[#668AE4] pr-6 pl-6 p-3" >
+                  <SpinnerCircular
+                    color="white"
+                    speed={254}
+                    size={24}
+                    thickness={184}
+                    secondaryColor="transparent"
+                  />
+                </button>
+              ):(
+                <button onClick={() => createStory()} className="hover:bg-[#4C73D5] rounded-md text-[white] font-cubito bg-[#668AE4] pr-6 pl-6 p-3" >Create</button>
+              )
+            ):(
             <button disabled className="rounded-md text-[white] font-cubito bg-[#668AE4] pr-6 pl-6 p-3" >Create</button>
-          ) }
+          )}
         </div>
       </div>
     </div>

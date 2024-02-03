@@ -10,6 +10,7 @@ import { BASE_URL, getCookie } from "../../utils/api"
 interface UserStoryProps{
   story: UserStory,
   onRepost: () => void
+  showRepost: boolean
   onFavorite: () => void
 }
 
@@ -54,17 +55,19 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
           {!props.story.own ? (
             <div className="flex">
               <Link to={"/user/" + props.story.user.user_id} ><p className="text-[gray] hover:underline font-cubito">By {props.story.user.anonymous_name}</p></Link>           
-              <div className="pl-4 font-semibold items-center flex font-cubito pl-2 text-[gray]">
-                <FaRetweet size={18} />
-                <p className="pl-1">Repost</p>
-              </div>
+              {props.showRepost ? (
+                <div className="rounded-md text-xs bg-[#668AE4] bg-opacity-20 ml-4 font-semibold items-center flex font-cubito pr-2 pl-2 text-[#668AE4]">
+                  <FaRetweet size={18} />
+                  <p className="pl-1">Repost</p>
+                </div>
+              ) : null}
             </div>
           ):(
             <p className="text-[gray] font-cubito">By {props.story.user.anonymous_name}</p>          
           )}
         </div>
         <div className="mt-4">
-          <p>{props.story.content}</p>
+          <p  style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}>{props.story.content}</p>
         </div>
         <div className="mt-6 gap-14 flex">
           {isRepostLoading ? (

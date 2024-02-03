@@ -176,7 +176,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                             <div className="items-center justify-around flex">
                               <Avatar
                                 size={40}
-                                name="Maria Mitchell"
+                                name={user.anonymous_name}
                                 variant="beam"
                                 colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
                               />
