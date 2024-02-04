@@ -7,6 +7,7 @@ import { eraseCookie, getCookie, getUser, isLoggedIn } from '../../utils/api'
 import { jwtDecode } from 'jwt-decode'
 import { useEffect, useState } from 'react'
 import LoginScreen from '../login_screen'
+import './index.css'
 
 interface NavBarProps {
   page: "stories" | "friends" | "create" | "account" | "logout"
@@ -47,13 +48,15 @@ const NavBar: React.FC<NavBarProps> = ( props ) => {
                 <div
                   className='text-[#668AE4] transition-all w-full p-2 flex bg-opacity-10 bg-[#668AE4] rounded-md'>
                   <div className='items-center justify-around flex'><FaBookBookmark size={14} /></div>
-                  <p className='font-cabin pl-2' >Stories</p>
+                  <p className='block-none font-cabin pl-2' >Stories</p>
                 </div>
               ):(
                 <div
-                  className='hover:text-[#668AE4] transition-all w-full p-2 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'>
+                  className='hover:text-[#668AE4] transition-all w-full p-2 flex 
+                             hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'
+                >
                   <div className='items-center justify-around flex'><FaBookBookmark size={14} /></div>
-                  <p className='font-cabin pl-2' >Stories</p>
+                  <p className='block-none font-cabin pl-2' >Stories</p>
                 </div>
               )}
             </li>
@@ -63,12 +66,14 @@ const NavBar: React.FC<NavBarProps> = ( props ) => {
               {props.page == 'friends' ? (
                 <div className='text-[#668AE4] transition-all w-full p-2 flex bg-opacity-10 bg-[#668AE4] rounded-md'>
                   <div className='items-center justify-around flex'><MdPeopleAlt size={14} /></div>
-                  <p className='font-cabin pl-2' >Friends</p>
+                  <p className='block-none font-cabin pl-2' >Friends</p>
                 </div>
               ):(
-                <div className='hover:text-[#668AE4] transition-all w-full p-2 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'>
+                <div className='hover:text-[#668AE4] transition-all 
+                                w-full p-2 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'
+                >
                   <div className='items-center justify-around flex'><MdPeopleAlt size={14} /></div>
-                  <p className='font-cabin pl-2' >Friends</p>
+                  <p className='block-none font-cabin pl-2' >Friends</p>
                 </div>
               )}
             </li>
@@ -76,14 +81,18 @@ const NavBar: React.FC<NavBarProps> = ( props ) => {
           <Link to={"/create"}>
             <li className="cursor-pointer pb-1 align-center flex">
               {props.page == 'create' ? (
-                <div className='text-[#668AE4] transition-all w-full p-2 flex bg-opacity-10 bg-[#668AE4] rounded-md'>
+                <div className='text-[#668AE4] transition-all w-full p-2 flex 
+                                bg-opacity-10 bg-[#668AE4] rounded-md'
+                >
                   <div className='items-center justify-around flex'><IoIosCreate size={14} /></div>
-                  <p className='font-cabin pl-2' >Create Story</p>
+                  <p className='block-none font-cabin pl-2' >Create Story</p>
                 </div>
               ):(
-                <div className='hover:text-[#668AE4] transition-all w-full p-2 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'>
+                <div className='hover:text-[#668AE4] transition-all w-full 
+                                p-2 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'
+                >
                   <div className='items-center justify-around flex'><IoIosCreate size={14} /></div>
-                  <p className='font-cabin pl-2' >Create Story</p>
+                  <p className='block-none font-cabin pl-2' >Create Story</p>
                 </div>
               )}
             </li>
@@ -95,22 +104,33 @@ const NavBar: React.FC<NavBarProps> = ( props ) => {
           <Link to={"/user/" + userId}>
             <li className="cursor-pointer pb-2 align-center flex">
               {props.page == 'account' ? (
-                <div className='text-[#668AE4] transition-all w-full p-2 flex bg-opacity-10 bg-[#668AE4] rounded-md'>
+                <div className='text-[#668AE4] transition-all 
+                                w-full p-2 flex bg-opacity-10 bg-[#668AE4] rounded-md'
+                >
                   <div className='items-center justify-around flex'><IoMdPerson size={14} /></div>
-                  <p className='font-cabin pl-2' >Profile</p>
+                  <p className='block-none font-cabin pl-2' >Profile</p>
                 </div>
               ):(
-                <div className='hover:text-[#668AE4] transition-all w-full p-2 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'>
+                <div className='hover:text-[#668AE4] transition-all w-full p-2 
+                                flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'
+                >
                   <div className='items-center justify-around flex'><IoMdPerson size={14} /></div>
-                  <p className='font-cabin pl-2' >Profile</p>
+                  <p className='block-none font-cabin pl-2' >Profile</p>
                 </div>
               )}
             </li>
           </Link>
-          <li onClick={() => { eraseCookie("jwt-token"); navigate("/"); navigate(0) }} className="cursor-pointer pb-2 align-center flex">
+          <li 
+            onClick={() => { 
+              eraseCookie("jwt-token"); 
+              navigate("/"); 
+              navigate(0) 
+            }} 
+            className="cursor-pointer pb-2 align-center flex"
+          >
             <div className='hover:text-[white] transition-all w-full p-2 flex hover:bg-[#D33939] rounded-md'>
               <div className='items-center justify-around flex'><IoLogOut size={14} /></div>
-              <p className='font-cabin pl-2' >Log Out</p>
+              <p className='block-none font-cabin pl-2' >Log Out</p>
             </div>
           </li>
         </ul>

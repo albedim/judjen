@@ -1,0 +1,9 @@
+.story_width{
+    width: 450px;
+}
+
+@media screen and (max-width: 700px) {
+    .story_width{
+        width: 284px;
+    }
+}

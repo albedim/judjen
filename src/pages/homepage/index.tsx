@@ -42,9 +42,9 @@ const HomePage = () => {
   return (
     <>
       <LoginScreen/>
-      <div className="p-8">
+      <div className="p-8 w-full">
         <div>
-          <h1 className="text-xl font-semibold font-cubito" >Stories</h1>
+          <h1 className="text-xl font-semibold font-cabin" >Stories</h1>
         </div>
         <div className="pl-0 p-4">
           {story ? (

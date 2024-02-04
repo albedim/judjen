@@ -23,7 +23,6 @@ const ReceivedFriendRequestComponent: React.FC<ReceivedFriendRequestProps> = ( p
     setIsLoading(true)
     await axios.post(BASE_URL + "/friends/accept", { user_id: userId }, { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
     .then(res => {
-      navigate("/friends")
       props.onAction()
     })
     .catch(err => console.log(err))
@@ -51,8 +50,8 @@ const ReceivedFriendRequestComponent: React.FC<ReceivedFriendRequestProps> = ( p
             />
           </div>
           <div className="pl-2">
-            <p className="text-md font-semibold font-cubito">{props.friend.anonymous_name}</p>
-            <p className="text-sm text-[gray] font-cubito">Received on {props.friend.received_on}</p>
+            <p className="text-md font-semibold font-cabin">{props.friend.anonymous_name}</p>
+            <p className="text-sm text-[gray] font-cabin">Received on {props.friend.received_on}</p>
           </div>
         </div>
         <div className="pl-4 items-center justify-around flex">

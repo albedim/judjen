@@ -39,8 +39,8 @@ const FriendComponent: React.FC<FriendProps> = ( props ) => {
               />
             </div>
             <div className="pl-2">
-              <p className="text-md font-semibold font-cubito">{props.friend.anonymous_name}</p>
-              <p className="text-sm text-[gray] font-cubito">Friends from {formatDate(props.friend.created_on)}</p>
+              <p className="text-md font-semibold font-cabin">{props.friend.anonymous_name}</p>
+              <p className="text-sm text-[gray] font-cabin">Friends from {formatDate(props.friend.created_on)}</p>
             </div>
           </div>
         </Link>

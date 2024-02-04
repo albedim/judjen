@@ -25,8 +25,8 @@ const SentFriendRequestComponent: React.FC<SentFriendRequestProps> = ( props ) =
           />
         </div>
         <div className="pl-2">
-          <p className="text-md font-semibold font-cubito">{props.friend.anonymous_name}</p>
-          <p className="text-sm text-[gray] font-cubito">Sent on {formatDate(props.friend.sent_on)}</p>
+          <p className="text-md font-semibold font-cabin">{props.friend.anonymous_name}</p>
+          <p className="text-sm text-[gray] font-cabin">Sent on {formatDate(props.friend.sent_on)}</p>
         </div>
       </div>
     </div>

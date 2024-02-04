@@ -1,0 +1,9 @@
+.block-none{
+    display: block;
+}
+
+@media screen and (max-width: 700px) {
+    .block-none{
+        display: none;
+    }
+}

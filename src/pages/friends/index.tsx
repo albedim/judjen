@@ -92,7 +92,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
   return (
     <div className="p-8">
       <div className="pb-4">
-        <h1 className="text-xl font-semibold font-cubito" >Friends</h1>
+        <h1 className="text-xl font-semibold font-cabin" >Friends</h1>
       </div>
       <div>
         <div>
@@ -168,7 +168,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                     getUsers(e.target.value)
                     setNewFriend(e.target.value)
                   }} value={newFriend} placeholder="Add friend..." className="rounded-md p-2 border bg-[#fefefe]" type="text" />
-                  <div className="pl-2 rounded-md mt-2 p-4 bg-[#fafafa] border" style={{ display: newFriend != "" ? 'block' : "none" }}>
+                  <div className="overflow-y-scroll pl-2 rounded-md mt-2 p-4 bg-[#fafafa] border" style={{ maxHeight: 284, display: newFriend != "" ? 'block' : "none" }}>
                     {users.map((user: Friend) => (
                       <div className="pb-2">
                         <div className="justify-between bg-[white] rounded-lg flex p-4 border">
@@ -182,8 +182,8 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                               />
                             </div>
                             <div className="pl-2">
-                              <p className="text-md font-semibold font-cubito">{user.anonymous_name}</p>
-                              <p className="text-sm text-[gray] font-cubito">{cutString(user.bio)}</p>
+                              <p className="text-md font-semibold font-cabin">{user.anonymous_name}</p>
+                              <p className="text-sm text-[gray] font-cabin">{cutString(user.bio)}</p>
                             </div>
                           </div>
                           <div className="pl-4 items-center justify-around flex">
@@ -196,7 +196,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                 </div>
                 <div className="mt-8">
                   <div className="border-b pb-2">
-                    <h2 className="text-md font-semibold font-cubito" >Pending requests</h2>
+                    <h2 className="text-md font-semibold font-cabin" >Pending requests</h2>
                   </div>
                   <div className="mt-4">
                     {sentFriendRequests && sentFriendRequests.length > 0 ? (
@@ -214,7 +214,10 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                 <div>
                   {receivedFriendRequests && receivedFriendRequests.length > 0 ? (
                     receivedFriendRequests?.map((friend: ReceivedFriendRequest) => (
-                      <ReceivedFriendRequestComponent onAction={() => getReceivedFriendRequests()} friend={friend} />
+                      <ReceivedFriendRequestComponent onAction={() => {
+                        getFriends()
+                        navigate("/friends")
+                      }} friend={friend} />
                     ))
                   ):(
                     <NotFound/>

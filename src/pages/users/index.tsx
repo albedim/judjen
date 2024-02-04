@@ -8,6 +8,7 @@ import { SpinnerCircular } from "spinners-react"
 import { formatDate } from "../../utils/dates"
 import { Link, useParams } from "react-router-dom"
 import UserStoryComponent from "../../components/userstory"
+import './index.css'
 import NotFound from "../../components/notfound"
 
 interface UserPageProps{
@@ -74,8 +75,8 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
           <NotFound/>
         ):(
           <div>
-            <div className="flex">
-              <div className="items-center justify-around flex">
+            <div className="flex-block">
+              <div className="pr-8 center flex">
                 <Avatar
                   size={124}
                   name={user?.anonymous_name}
@@ -83,11 +84,11 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                   colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
                 />
               </div>
-              <div className="items-center flex pl-8">
+              <div className="center flex">
                 <div>
-                  <h2 className="text-xl font-semibold font-cubito">{user?.anonymous_name}</h2>
-                  <p className="mt-1 text-md text-[gray] font-cubito">{user?.bio}</p>
-                  <p className="mt-3 text-sm text-[gray] font-cubito">On Judjen from {formatDate(user?.created_on)}</p>
+                  <h2 className="text-xl font-semibold font-cabin">{user?.anonymous_name}</h2>
+                  <p className="mt-1 text-md text-[gray] font-cabin">{user?.bio}</p>
+                  <p className="mt-3 text-sm text-[gray] font-cabin">On Judjen from {formatDate(user?.created_on)}</p>
                 </div>
               </div>
             </div>

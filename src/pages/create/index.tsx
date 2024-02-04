@@ -76,21 +76,21 @@ const Create = () => {
   return (
     <div className="p-8">
       <div className="pb-4">
-        <h1 className="text-xl font-semibold font-cubito" >Create</h1>
+        <h1 className="text-xl font-semibold font-cabin" >Create</h1>
       </div>
       <div>
         <div className="mt-2">
-          <div><label className="font-cubito" htmlFor="title">Title</label></div>
+          <div><label className="font-cabin" htmlFor="title">Title</label></div>
           <div className="mt-1"><input onChange={(e) => handleStory(e)} name="title" value={story.title} placeholder="Add friend..." className="w-64 rounded-md p-2 border" type="text" /></div>
         </div>
         <div className="mt-2">
-          <div><label className="font-cubito" htmlFor="content">Content</label></div>
+          <div><label className="font-cabin" htmlFor="content">Content</label></div>
           <div className="mt-1"><textarea onChange={(e) => handleStory(e)} name="content" value={story.content} placeholder="Add friend..." className="w-64 h-44 rounded-md p-2 border" /></div>
         </div>
         <div className="mt-2 flex">
           {selectedTopics.map((topic => (
             <div className="p-1">
-              <div className="items-center flex text-sm font-cubito text-[white] pr-2 p-1 pl-2 rounded-md bg-[#668AE4]">
+              <div className="items-center flex text-sm font-cabin text-[white] pr-2 p-1 pl-2 rounded-md bg-[#668AE4]">
                 <p>{topic.name}</p>
                 <MdCancel onClick={(e) => removeTopic(topic.tag_id.toString())} className="cursor-pointer ml-2"/>
               </div>
@@ -98,7 +98,7 @@ const Create = () => {
           )))}
         </div>
         <div className="mt-2">
-          <div><label className="font-cubito" htmlFor="topics">Topics</label></div>
+          <div><label className="font-cabin" htmlFor="topics">Topics</label></div>
           <div className="mt-1">
             <select onChange={(e) => addTopic(e.target.value)} className="w-64 bg-[white] rounded-md p-2 border" >
               <option value={"null"}></option>
@@ -111,7 +111,7 @@ const Create = () => {
         <div className="mt-8">
           { selectedTopics.length > 0 && story.title != "" && story.content != "" ? (
               isLoading ? (
-                <button disabled className="rounded-md text-[white] font-cubito bg-[#668AE4] pr-6 pl-6 p-3" >
+                <button disabled className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >
                   <SpinnerCircular
                     color="white"
                     speed={254}
@@ -121,10 +121,10 @@ const Create = () => {
                   />
                 </button>
               ):(
-                <button onClick={() => createStory()} className="hover:bg-[#4C73D5] rounded-md text-[white] font-cubito bg-[#668AE4] pr-6 pl-6 p-3" >Create</button>
+                <button onClick={() => createStory()} className="hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >Create</button>
               )
             ):(
-            <button disabled className="rounded-md text-[white] font-cubito bg-[#668AE4] pr-6 pl-6 p-3" >Create</button>
+            <button disabled className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >Create</button>
           )}
         </div>
       </div>
