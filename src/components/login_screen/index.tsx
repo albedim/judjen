@@ -188,11 +188,16 @@ const LoginScreen = () => {
                     onClick={() => setPage("signup")} 
                     className="cursor-pointer text-xs font-cabin">Create an account now
                   </p>
+                  <p 
+                    onClick={() => navigate("/recover")} 
+                    className="mt-2 text-[#668AE4] underline cursor-pointer text-xs font-cabin">Forgot your password?
+                  </p>
                 </div>
                 {request.email != "" && request.password != "" ? (
                   isLoading ? (
-                    <button 
-                      className="hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >
+                    <button
+                      disabled
+                      className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >
                       <SpinnerCircular
                         color="white"
                         speed={254}
@@ -210,7 +215,7 @@ const LoginScreen = () => {
                     </button>
                   )
                 ):(
-                  <button 
+                  <button
                     disabled 
                     className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
                   >
@@ -301,8 +306,9 @@ const LoginScreen = () => {
             </div>
             {isSignUpValid() ? (
               isLoading ? (
-                <button 
-                  className="hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
+                <button
+                  disabled
+                  className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
                 >
                   <SpinnerCircular
                     color="white"

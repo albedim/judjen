@@ -52,7 +52,7 @@ const OptionsScreen: React.FC<OptionsScreenProps> = ( props ) => {
       <div className="border p-4 rounded-md bg-[white]">
         <div className="items-center justify-between flex pb-2 border-b">
           <h2 className="font-semibold text-xl font-cabin">Account</h2>
-          <button onClick={() => props.onClose(false)} ><IoClose size={24} color="gray" /></button>
+          <button onClick={() => props.onClose(false)} ><IoClose size={24} color="#d4d4d4" /></button>
         </div>
         <form onSubmit={(e) => change(e)} action="">
           <div className="mt-4">
@@ -108,8 +108,9 @@ const OptionsScreen: React.FC<OptionsScreenProps> = ( props ) => {
             <div></div>
             {request.password == "" || request.password.match("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$") ? (
               isLoading ? (
-                <button 
-                  className="hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >
+                <button
+                  disabled
+                  className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >
                   <SpinnerCircular
                     color="white"
                     speed={254}
@@ -129,7 +130,7 @@ const OptionsScreen: React.FC<OptionsScreenProps> = ( props ) => {
             ):(
               <button
                 disabled
-                className="transition-all hover:bg-[#4C73D5] rounded-md text-[white] 
+                className="transition-all rounded-md text-[white] 
                 font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
               >
                 Change

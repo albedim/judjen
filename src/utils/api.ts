@@ -33,7 +33,7 @@ export const getUser = async () => {
   let user = {}
   if (cookie !== undefined) {
     const userId = jwtDecode<any>(cookie).sub.user_id
-    await axios.get(BASE_URL + "/users/" + userId)
+    await axios.get(BASE_URL + "/users/" + userId, { headers: { Authorization: 'Bearer ' + getCookie("jwt-token") } })
     .then(res => {
       user = res.data.param
     })

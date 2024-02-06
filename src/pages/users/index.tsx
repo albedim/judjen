@@ -32,7 +32,8 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
 
   const getUser = async () => {
     setIsLoading(true)
-    await axios.get(BASE_URL + "/users/" + userId, { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
+    await axios.get(
+      BASE_URL + "/users/" + userId, { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
     .then(res => {
       setUser(res.data.param)
     })
@@ -105,9 +106,11 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                       <p className="mt-3 text-sm text-[gray] font-cabin">On Judjen from {formatDate(user?.created_on)}</p>
                     </div>
                   </div>
-                  <div className="ml-14">
-                    <button onClick={() => setShowOptions(true)}><RiSettings5Fill color="gray" size={24}/></button>
-                  </div>
+                  {user?.own ? (
+                    <div className="ml-14">
+                      <button onClick={() => setShowOptions(true)}><RiSettings5Fill color="#d4d4d4" size={24}/></button>
+                    </div>
+                  ) : null}
                 </div>
                 <div className="mt-8 flex">
                   <ul className="gap-3 flex">

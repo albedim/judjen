@@ -31,6 +31,7 @@ export interface User {
     created_on: string; // Assuming this is a string representing a date (you may want to use Date type if working with actual Date objects)
     email: string;
     bio: string,
+    own?: boolean,
     user_id: string;
 }
 
