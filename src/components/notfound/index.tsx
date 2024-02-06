@@ -1,11 +1,16 @@
+import React from "react"
 import { PiSmileySadLight } from "react-icons/pi"
 
-const NotFound = () => {
+interface NotFoundProps{
+  message?: string
+}
+
+const NotFound: React.FC<NotFoundProps> = ( props ) => {
   return(
     <div className="w-full items-center justify-around flex">
       <div>
         <div className="justify-around flex"><PiSmileySadLight color="#668AE4" size={50} /></div>
-        <h2 className="mt-2 text-md font-normal font-cabin" >No results were found.</h2>
+        <h2 className="mt-2 text-md font-normal font-cabin" >{props.message ? props.message : "No results were found."}</h2>
       </div>
     </div>
   )

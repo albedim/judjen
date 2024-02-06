@@ -90,7 +90,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
   }
 
   return (
-    <div className="p-8">
+    <div className="ml-64 p-8">
       <div className="pb-4">
         <h1 className="text-xl font-semibold font-cabin" >Friends</h1>
       </div>

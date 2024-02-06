@@ -74,18 +74,18 @@ const Create = () => {
 
 
   return (
-    <div className="p-8">
+    <div className="ml-64 p-8">
       <div className="pb-4">
         <h1 className="text-xl font-semibold font-cabin" >Create</h1>
       </div>
       <div>
         <div className="mt-2">
           <div><label className="font-cabin" htmlFor="title">Title</label></div>
-          <div className="mt-1"><input onChange={(e) => handleStory(e)} name="title" value={story.title} placeholder="Add friend..." className="w-64 rounded-md p-2 border" type="text" /></div>
+          <div className="mt-1"><input onChange={(e) => handleStory(e)} name="title" value={story.title} placeholder="This is my first story..." className="w-64 rounded-md p-2 border" type="text" /></div>
         </div>
         <div className="mt-2">
           <div><label className="font-cabin" htmlFor="content">Content</label></div>
-          <div className="mt-1"><textarea onChange={(e) => handleStory(e)} name="content" value={story.content} placeholder="Add friend..." className="w-64 h-44 rounded-md p-2 border" /></div>
+          <div className="mt-1"><textarea onChange={(e) => handleStory(e)} name="content" value={story.content} placeholder="I love cringe stories more than yesterday..." className="w-64 h-44 rounded-md p-2 border" /></div>
         </div>
         <div className="mt-2 flex">
           {selectedTopics.map((topic => (

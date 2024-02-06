@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import LoginScreen from '../login_screen'
 import './index.css'
 
+
 interface NavBarProps {
   page: "stories" | "friends" | "create" | "account" | "logout"
 }
@@ -36,7 +37,7 @@ const NavBar: React.FC<NavBarProps> = ( props ) => {
   }
 
   return (
-    <div className="h-screen w-64 p-4 border">
+    <div className="fixed h-screen w-64 p-4 border">
       <div className="pt-8 pb-8 border-b">
         logo
       </div>

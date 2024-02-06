@@ -8,6 +8,9 @@ import { SpinnerCircular } from "spinners-react"
 import LoginScreen from "../../components/login_screen"
 import { Link } from "react-router-dom"
 import StoryComponent from "../../components/story"
+import NotFound from "../../components/notfound"
+import { MdNavigateNext, MdNextPlan, MdOutlineNextPlan, MdOutlineNextWeek, MdSkipNext } from "react-icons/md"
+import { IoIosArrowForward } from "react-icons/io"
 
 const HomePage = () => {
 
@@ -42,15 +45,21 @@ const HomePage = () => {
   return (
     <>
       <LoginScreen/>
-      <div className="p-8 w-full">
-        <div>
+      <div className="ml-64 p-8 w-full">
+        <div className="pb-4">
           <h1 className="text-xl font-semibold font-cabin" >Stories</h1>
         </div>
-        <div className="pl-0 p-4">
+        <div className="items-center flex pl-0 p-4">
           {story ? (
-            <StoryComponent onFavorite={favorite} onRepost={repost} story={story}/>
+            <>
+              <StoryComponent onFavorite={favorite} onRepost={repost} story={story}/>
+              <button onClick={() => getStory()} className="hover:hover:opacity-60 text-[#668AE4] pl-6">
+                <IoIosArrowForward size={42}/>
+                <p className="text-center text-md font-semibold font-cabin" >Next</p>
+              </button>
+            </>
           ):(
-            <></>
+            <NotFound message="No story found" />
           )}
         </div>
       </div>
