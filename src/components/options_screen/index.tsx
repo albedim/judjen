@@ -106,7 +106,7 @@ const OptionsScreen: React.FC<OptionsScreenProps> = ( props ) => {
           </div>
           <div className="mt-8 items-center justify-between flex">
             <div></div>
-            {request.password == "" || request.password.match("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$") ? (
+            {request.password == "" || request.password.match("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$") ? (
               isLoading ? (
                 <button
                   disabled

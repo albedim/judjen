@@ -83,7 +83,7 @@ const CreatePasswordScreen = () => {
             <h2 className="text-xs text-[green] font-cabin">{message}</h2>
           </div>
           <div className="mt-8 items-center justify-between flex">
-            {request.password != "" && request.password == request.confirm_password ? (
+            {request.password.match("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$") && request.password == request.confirm_password ? (
               isLoading ? (
                 <button
                   disabled

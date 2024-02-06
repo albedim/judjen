@@ -33,7 +33,7 @@ const LoginScreen = () => {
   }
 
   const isSignUpValid = () => {
-    return signupRequest.email != "" && signupRequest.password != ""
+    return signupRequest.email.match(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/) && signupRequest.password.match("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$")
   }
 
   const generateName = () => {

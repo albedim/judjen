@@ -1,4 +1,5 @@
 import Avatar from "boring-avatars"
+import './index.css'
 import '../index.css'
 import { useEffect, useState } from "react"
 import { FaBookmark, FaRetweet } from "react-icons/fa6"
@@ -47,14 +48,18 @@ const HomePage = () => {
     <>
       <LoginScreen/>
       <div className="mlpage p-8 w-full">
-        <div className="pb-4">
+        <div className="justify-between flex pb-4">
           <h1 className="text-xl font-semibold font-cabin" >Stories</h1>
+          <button onClick={() => getStory()} className="none-flex mr-14 items-center hover:hover:opacity-60 text-[#668AE4] pl-6">
+            <p className="text-md font-semibold font-cabin" >Next</p>
+            <IoIosArrowForward size={24}/>
+          </button>
         </div>
         <div className="items-center flex pl-0 p-4">
           {story ? (
             <>
               <StoryComponent onFavorite={favorite} onRepost={repost} story={story}/>
-              <button onClick={() => getStory()} className="hover:hover:opacity-60 text-[#668AE4] pl-6">
+              <button onClick={() => getStory()} className="block-none hover:hover:opacity-60 text-[#668AE4] pl-6">
                 <IoIosArrowForward size={42}/>
                 <p className="text-center text-md font-semibold font-cabin" >Next</p>
               </button>
