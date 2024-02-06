@@ -168,8 +168,8 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                   <input onChange={(e) => {
                     getUsers(e.target.value)
                     setNewFriend(e.target.value)
-                  }} value={newFriend} placeholder="Add friend..." className="rounded-md p-2 border bg-[#fefefe]" type="text" />
-                  <div className="overflow-y-scroll pl-2 rounded-md mt-2 p-4 bg-[#fafafa] border" style={{ maxHeight: 284, display: newFriend != "" ? 'block' : "none" }}>
+                  }} value={newFriend} placeholder="Add friend..." className="rounded-md p-2 border bg-[#fcfcfc]" type="text" />
+                  <div className="overflow-y-scroll pl-2 rounded-md mt-2 p-4 bg-[#fcfcfc] border" style={{ maxHeight: 284, display: newFriend != "" ? 'block' : "none" }}>
                     {users.map((user: Friend) => (
                       <div className="pb-2">
                         <div className="justify-between bg-[white] rounded-lg flex p-4 border">

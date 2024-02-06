@@ -15,7 +15,7 @@ const SentFriendRequestComponent: React.FC<SentFriendRequestProps> = ( props ) =
 
   return(
     <div className="pb-2">
-      <div className="rounded-lg flex p-4 border">
+      <div className="bg-[#fcfcfc] rounded-lg flex p-4 border">
         <div className="items-center justify-around flex">
           <Avatar
             size={40}

@@ -27,7 +27,7 @@ const FriendComponent: React.FC<FriendProps> = ( props ) => {
 
   return(
     <div className="pb-2">
-      <div className="justify-between rounded-lg flex p-4 border">
+      <div className="bg-[#fcfcfc] justify-between rounded-lg flex p-4 border">
         <Link to={"/user/" + props.friend.user_id}>
           <div className="flex">
             <div className="items-center justify-around flex">

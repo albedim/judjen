@@ -36,7 +36,7 @@ const StoryComponent: React.FC<StoryProps> = ( props ) => {
   }
 
   return(
-    <div className="story_width p-4 rounded-md border">
+    <div className="bg-[#fcfcfc] story_width p-4 rounded-md border">
       <div className="flex">
         {props.story.topics.map((topic: Topic) => (
           <div className="pl-0 p-1">

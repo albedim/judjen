@@ -38,7 +38,7 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
 
   return(
     <div className="pl-0 p-2" >
-      <div className="story_width p-4 rounded-md border">
+      <div className="bg-[#fcfcfc] story_width p-4 rounded-md border">
         <div className="items-center justify-between flex">
           <div className="flex">
             {props.story.topics.map((topic: Topic) => (
