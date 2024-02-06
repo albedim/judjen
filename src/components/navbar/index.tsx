@@ -37,7 +37,7 @@ const NavBar: React.FC<NavBarProps> = ( props ) => {
   }
 
   return (
-    <div className="fixed h-screen wi p-4 border">
+    <div className="bg-[white] fixed h-screen wi p-4 border">
       <div className="items-center flex pt-8 pb-4 border-b">
         <div>
           <img width={42} src={require("../../images/logo.png")} alt="" />
