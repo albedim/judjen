@@ -1,5 +1,6 @@
 import Avatar from "boring-avatars"
 import '../index.css'
+import { RiSettings5Fill } from 'react-icons/ri'
 import React, { useEffect, useState } from "react"
 import { FaBookmark, FaRetweet } from "react-icons/fa6"
 import { Story, StorySchema, Topic, User, UserStory } from "../../typos/interfaces"
@@ -11,6 +12,7 @@ import { Link, useParams } from "react-router-dom"
 import UserStoryComponent from "../../components/userstory"
 import './index.css'
 import NotFound from "../../components/notfound"
+import OptionsScreen from "../../components/options_screen"
 
 interface UserPageProps{
   subPage: "stories" | "favorites"
@@ -19,6 +21,7 @@ interface UserPageProps{
 const UserPage: React.FC<UserPageProps> = ( props ) => {
   
   const [user, setUser] = useState<User>()
+  const [showOptions, setShowOptions] = useState(false)
   const [error, setError] = useState(false)
   const [favoriteStories, setFavoriteStories] = useState<UserStory[]>()
   const [isRepostLoading, setIsRepostLoading] = useState(false)
@@ -61,90 +64,87 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
   }
 
   return (
-    <div className="mlpage">
-      {isLoading ? (
-        <div className="items-center justify-around flex">
-          <SpinnerCircular
-            color="#668AE4"
-            speed={254}
-            thickness={154}
-            secondaryColor="transparent"
-          />
-        </div>
-      ):(
-        error ? (
-          <NotFound/>
+    <>
+      {showOptions &&
+        <OptionsScreen onClose={(update) => {
+          setShowOptions(false)
+          if (update) {
+            getUser()
+          }
+        }}/>
+      }
+      <div className="mlpage">
+        {isLoading ? (
+          <div className="items-center justify-around flex">
+            <SpinnerCircular
+              color="#668AE4"
+              speed={254}
+              thickness={154}
+              secondaryColor="transparent"
+            />
+          </div>
         ):(
-          <div>
-            <div className="pb-8 top-0 p-14 bg-[white] w-full z-30 fixed">
-              <div className="flex-block">
-                <div className="pr-8 center flex">
-                  <Avatar
-                    size={124}
-                    name={user?.anonymous_name}
-                    variant="beam"
-                    colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
-                  />
-                </div>
-                <div className="center flex">
-                  <div>
-                    <h2 className="text-xl font-semibold font-cabin">{user?.anonymous_name}</h2>
-                    <p className="mt-1 text-md text-[gray] font-cabin">{user?.bio}</p>
-                    <p className="mt-3 text-sm text-[gray] font-cabin">On Judjen from {formatDate(user?.created_on)}</p>
+          error ? (
+            <NotFound/>
+          ):(
+            <div>
+              <div className="pb-8 top-0 p-14 bg-[white] w-full z-30 fixed">
+                <div className="flex-block">
+                  <div className="pr-8 center flex">
+                    <Avatar
+                      size={124}
+                      name={user?.anonymous_name}
+                      variant="beam"
+                      colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
+                    />
+                  </div>
+                  <div className="center flex">
+                    <div>
+                      <h2 className="text-xl font-semibold font-cabin">{user?.anonymous_name}</h2>
+                      <p className="mt-1 text-md text-[gray] font-cabin">{user?.bio}</p>
+                      <p className="mt-3 text-sm text-[gray] font-cabin">On Judjen from {formatDate(user?.created_on)}</p>
+                    </div>
+                  </div>
+                  <div className="ml-14">
+                    <button onClick={() => setShowOptions(true)}><RiSettings5Fill color="gray" size={24}/></button>
                   </div>
                 </div>
-              </div>
-              <div className="mt-8 flex">
-                <ul className="gap-3 flex">
-                  {props.subPage == 'stories' ? (
-                    <li className="cursor-pointer text-sm border-b-2 border-[#668AE4] border-b p-2">
-                      <p>Stories</p>
-                    </li>
-                  ):(
-                    <Link onClick={() => getStories()} to={"/user/" + userId}>
-                      <li className="cursor-pointer transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
+                <div className="mt-8 flex">
+                  <ul className="gap-3 flex">
+                    {props.subPage == 'stories' ? (
+                      <li className="cursor-pointer text-sm border-b-2 border-[#668AE4] border-b p-2">
                         <p>Stories</p>
                       </li>
-                    </Link>
-                  )}
-                  {props.subPage == 'favorites' ? (
-                    <li className="cursor-pointer flex text-sm border-b-2 border-[#668AE4] border-b p-2">
-                      <p>Favorite Stories</p>
-                    </li>
-                  ):(
-                    <Link onClick={() => getFavoriteStories()} to={"/user/" + userId + "/favorites"}>
-                      <li className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
+                    ):(
+                      <Link onClick={() => getStories()} to={"/user/" + userId}>
+                        <li className="cursor-pointer transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
+                          <p>Stories</p>
+                        </li>
+                      </Link>
+                    )}
+                    {props.subPage == 'favorites' ? (
+                      <li className="cursor-pointer flex text-sm border-b-2 border-[#668AE4] border-b p-2">
                         <p>Favorite Stories</p>
                       </li>
-                    </Link>
-                  )}
-                </ul>
-              </div>
-            </div>
-            <div className="pt-4 pl-14 mt-64">
-              {props.subPage == 'stories' ? (
-                <div style={{ maxWidth: 1000 }} className="flex-wrap flex mt-4">
-                  {stories && stories.length > 0 ? (
-                    stories?.map((story: UserStory) => (
-                      <UserStoryComponent
-                        onRepost={() => getStories()}
-                        showRepost={true}
-                        onFavorite={() => getStories()}
-                        story={story} />
-                    ))
-                  ):(
-                    <NotFound/>
-                  )}
+                    ):(
+                      <Link onClick={() => getFavoriteStories()} to={"/user/" + userId + "/favorites"}>
+                        <li className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
+                          <p>Favorite Stories</p>
+                        </li>
+                      </Link>
+                    )}
+                  </ul>
                 </div>
-              ):(
-                props.subPage == 'favorites' ? (
+              </div>
+              <div className="pt-4 pl-14 mt-64">
+                {props.subPage == 'stories' ? (
                   <div style={{ maxWidth: 1000 }} className="flex-wrap flex mt-4">
-                    {favoriteStories && favoriteStories.length > 0 ? (
-                      favoriteStories?.map((story: UserStory) => (
+                    {stories && stories.length > 0 ? (
+                      stories?.map((story: UserStory) => (
                         <UserStoryComponent
-                          onRepost={() => getFavoriteStories()}
-                          showRepost={false}
-                          onFavorite={() => getFavoriteStories()}
+                          onRepost={() => getStories()}
+                          showRepost={true}
+                          onFavorite={() => getStories()}
                           story={story} />
                       ))
                     ):(
@@ -152,14 +152,30 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                     )}
                   </div>
                 ):(
-                  <></>
-                )
-              )}
+                  props.subPage == 'favorites' ? (
+                    <div style={{ maxWidth: 1000 }} className="flex-wrap flex mt-4">
+                      {favoriteStories && favoriteStories.length > 0 ? (
+                        favoriteStories?.map((story: UserStory) => (
+                          <UserStoryComponent
+                            onRepost={() => getFavoriteStories()}
+                            showRepost={false}
+                            onFavorite={() => getFavoriteStories()}
+                            story={story} />
+                        ))
+                      ):(
+                        <NotFound/>
+                      )}
+                    </div>
+                  ):(
+                    <></>
+                  )
+                )}
+              </div>
             </div>
-          </div>
-        )
-      )}
-    </div>
+          )
+        )}
+      </div>
+    </>
   )
 }
 
