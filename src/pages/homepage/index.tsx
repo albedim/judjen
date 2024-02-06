@@ -59,7 +59,7 @@ const HomePage = () => {
           {story ? (
             <>
               <StoryComponent onFavorite={favorite} onRepost={repost} story={story}/>
-              <button onClick={() => getStory()} className="block-none hover:hover:opacity-60 text-[#668AE4] pl-6">
+              <button onClick={() => getStory()} className="transition-all block-none hover:hover:opacity-60 text-[#668AE4] pl-6">
                 <IoIosArrowForward size={42}/>
                 <p className="text-center text-md font-semibold font-cabin" >Next</p>
               </button>

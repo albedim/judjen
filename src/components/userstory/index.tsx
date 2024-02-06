@@ -53,7 +53,7 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
         </div>
         <h1 className="mt-2 font-semibold text-xl font-cabin">{props.story.title}</h1>
         <div className="items-center flex">
-          {!props.story.own ? (
+          {!props.story.is_page_user_owner ? (
             <div className="flex">
               <Link to={"/user/" + props.story.user.user_id} ><p className="text-[gray] hover:underline font-cabin">By {props.story.user.anonymous_name}</p></Link>           
               {props.showRepost ? (
@@ -64,7 +64,11 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
               ) : null}
             </div>
           ):(
-            <p className="text-[gray] font-cabin">By {props.story.user.anonymous_name}</p>          
+            props.story.is_requesting_user_owner ? (
+              <p className="text-[gray] font-cabin">By You</p>          
+            ):(
+              <p className="text-[gray] font-cabin">By {props.story.user.anonymous_name}</p>
+            )
           )}
         </div>
         <div className="mt-4">

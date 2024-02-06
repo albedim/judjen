@@ -99,7 +99,7 @@ const LoginScreen = () => {
     setSignupRequest({ 
       ...signupRequest, 
       anonymous_name: namesWithoutNumbers[Math.floor(Math.random() * namesWithoutNumbers.length)] + " " +
-          firstNames[Math.floor(Math.random() * firstNames.length)]
+          firstNames[Math.floor(Math.random() * firstNames.length)] + " " + Math.floor(Math.random() * (200 - 100 + 1) + 100)
     })
   }
 
@@ -120,7 +120,7 @@ const LoginScreen = () => {
     setIsLoading(true)
     await axios.post(BASE_URL + "/users/signin", request)
     .then(res => {
-      setCookie("jwt-token", res.data.param.token, 14)
+      setCookie("jwt-token", res.data.param.token, res.data.param.expires_in)
       navigate(0)
     })
     .catch(err => setError(err.response.data.error.message))
@@ -131,7 +131,7 @@ const LoginScreen = () => {
     setIsLoading(true)
     await axios.post(BASE_URL + "/users/signup", signupRequest)
     .then(res => {
-      setCookie("jwt-token", res.data.param.token, 14)
+      setCookie("jwt-token", res.data.param.token, res.data.param.expires_in)
       navigate(0)
     })
     .catch(err => setError(err.response.data.error.message))

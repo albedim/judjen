@@ -79,7 +79,8 @@ export interface UserStory {
     created_on: string;
     favorited: boolean;
     favorites: number;
-    own: boolean;
+    is_page_user_owner: boolean;
+    is_requesting_user_owner: boolean,
     reposted: boolean;
     reposts: number;
     story_id: number;

@@ -38,8 +38,11 @@ const NavBar: React.FC<NavBarProps> = ( props ) => {
 
   return (
     <div className="fixed h-screen wi p-4 border">
-      <div className="pt-8 pb-8 border-b">
-        logo
+      <div className="items-center flex pt-8 pb-4 border-b">
+        <div>
+          <img width={42} src={require("../../images/logo.png")} alt="" />
+        </div>
+        <h2 className='block-none text-[#668AE4] ml-2 text-xl font-semibold font-cabin pl-2'>Jud<span className='text-[#4C73D5] font-bold'>Jen</span></h2>
       </div>
       <div className='pb-8 border-b mt-8'>
         <ul>
