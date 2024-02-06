@@ -1,4 +1,5 @@
 import axios from "axios"
+import '../index.css'
 import Avatar from "boring-avatars"
 import { useEffect, useState } from "react"
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io"
@@ -74,7 +75,7 @@ const Create = () => {
 
 
   return (
-    <div className="ml-64 p-8">
+    <div className="mlpage p-8">
       <div className="pb-4">
         <h1 className="text-xl font-semibold font-cabin" >Create</h1>
       </div>

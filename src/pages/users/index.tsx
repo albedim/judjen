@@ -1,4 +1,5 @@
 import Avatar from "boring-avatars"
+import '../index.css'
 import React, { useEffect, useState } from "react"
 import { FaBookmark, FaRetweet } from "react-icons/fa6"
 import { Story, StorySchema, Topic, User, UserStory } from "../../typos/interfaces"
@@ -60,7 +61,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
   }
 
   return (
-    <div className="ml-64">
+    <div className="mlpage">
       {isLoading ? (
         <div className="items-center justify-around flex">
           <SpinnerCircular

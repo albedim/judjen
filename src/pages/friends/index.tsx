@@ -1,4 +1,5 @@
 import Avatar from "boring-avatars"
+import '../index.css'
 import { useEffect, useState } from "react"
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io"
 import { Link, useNavigate } from "react-router-dom"
@@ -90,7 +91,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
   }
 
   return (
-    <div className="ml-64 p-8">
+    <div className="mlpage p-8">
       <div className="pb-4">
         <h1 className="text-xl font-semibold font-cabin" >Friends</h1>
       </div>

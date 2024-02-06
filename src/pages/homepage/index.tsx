@@ -1,4 +1,5 @@
 import Avatar from "boring-avatars"
+import '../index.css'
 import { useEffect, useState } from "react"
 import { FaBookmark, FaRetweet } from "react-icons/fa6"
 import { Story, StorySchema, Topic } from "../../typos/interfaces"
@@ -45,7 +46,7 @@ const HomePage = () => {
   return (
     <>
       <LoginScreen/>
-      <div className="ml-64 p-8 w-full">
+      <div className="mlpage p-8 w-full">
         <div className="pb-4">
           <h1 className="text-xl font-semibold font-cabin" >Stories</h1>
         </div>
