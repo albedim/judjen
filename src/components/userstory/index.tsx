@@ -10,6 +10,7 @@ import { BASE_URL, getCookie } from "../../utils/api"
 
 interface UserStoryProps{
   story: UserStory,
+  onOpen: () => void
   onRepost: () => void
   showRepost: boolean
   onFavorite: () => void
@@ -38,7 +39,7 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
 
   return(
     <div className="pl-0 p-2" >
-      <div className="bg-[#fcfcfc] story_width p-4 rounded-md border">
+      <div className="story_height bg-[#fcfcfc] story_width p-4 rounded-md border">
         <div className="items-center justify-between flex">
           <div className="flex">
             {props.story.topics.map((topic: Topic) => (
@@ -72,9 +73,20 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
           )}
         </div>
         <div className="mt-4">
-          <p  style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}>{props.story.content}</p>
+          {props.story.content.length > 246 ? (
+            <>
+              <p className="font-cabin" style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
+                {props.story.content.length > 246 ? props.story.content.substring(0, 246) + " ..." : props.story.content}
+                <span onClick={props.onOpen} className="ml-2 cursor-pointer underline font-semibold font-cabin">More</span>
+              </p>
+            </>
+          ):(
+            <p className="font-cabin" style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
+              {props.story.content}
+            </p>
+          )}
         </div>
-        <div className="mt-6 gap-14 flex">
+        <div className="bottom-4 story_bottom mt-6 gap-14 flex">
           {isRepostLoading ? (
             <div>
               <SpinnerCircular

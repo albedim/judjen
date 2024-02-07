@@ -48,7 +48,7 @@ const OptionsScreen: React.FC<OptionsScreenProps> = ( props ) => {
   },[])
 
   return(
-    <div className="z-40 items-center justify-around flex backdrop-blur-sm absolute h-screen w-screen">
+    <div className="fixed z-40 items-center justify-around flex backdrop-blur-sm h-screen w-screen">
       <div className="border p-4 rounded-md bg-[white]">
         <div className="items-center justify-between flex pb-2 border-b">
           <h2 className="font-semibold text-xl font-cabin">Account</h2>

@@ -14,6 +14,7 @@ import './index.css'
 import NotFound from "../../components/notfound"
 import OptionsScreen from "../../components/options_screen"
 import { MdPeopleAlt } from "react-icons/md"
+import StoryScreen from "../../components/story_screen"
 
 interface UserPageProps{
   subPage: "stories" | "favorites"
@@ -22,6 +23,8 @@ interface UserPageProps{
 const UserPage: React.FC<UserPageProps> = ( props ) => {
   
   const [user, setUser] = useState<User>()
+  const [storyScreenVisible, setStoryScreenVisible] = useState(false)
+  const [screenStory, setScreenStory] = useState<null | Story>(null)
   const [isSendingFriendLoading, setIsSendingFriendLoading] = useState(false)
   const [showOptions, setShowOptions] = useState(false)
   const [error, setError] = useState(false)
@@ -101,6 +104,9 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
             getUser()
           }
         }}/>
+      }
+      {storyScreenVisible &&
+        <StoryScreen onClose={() => setStoryScreenVisible(false)} story={screenStory} />
       }
       <div className="mlpage">
         {isLoading ? (
@@ -207,6 +213,10 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                     {stories && stories.length > 0 ? (
                       stories?.map((story: UserStory) => (
                         <UserStoryComponent
+                          onOpen={() => {
+                            setStoryScreenVisible(true)
+                            setScreenStory(story)
+                          }}
                           onRepost={() => getStories()}
                           showRepost={true}
                           onFavorite={() => getStories()}
@@ -222,6 +232,10 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                       {favoriteStories && favoriteStories.length > 0 ? (
                         favoriteStories?.map((story: UserStory) => (
                           <UserStoryComponent
+                            onOpen={() => {
+                              setStoryScreenVisible(true)
+                              setScreenStory(story)
+                            }}
                             onRepost={() => getFavoriteStories()}
                             showRepost={false}
                             onFavorite={() => getFavoriteStories()}
