@@ -31,6 +31,10 @@ export interface User {
     created_on: string; // Assuming this is a string representing a date (you may want to use Date type if working with actual Date objects)
     email: string;
     bio: string,
+    friend: {
+        friendable: boolean,
+        is_request_pending: boolean
+    }
     own?: boolean,
     user_id: string;
 }
@@ -40,13 +44,21 @@ export interface Story {
     created_on: string; // Assuming this is a string representing a date (you may want to use Date type if working with actual Date objects)
     story_id: number;
     title: string;
-    user: User;
+    user: StoryUser;
     reposts: number,
     favorites: number,
     reposted: boolean,
     favorited: boolean,
     user_id: string;
     topics: Topic[]
+}
+
+export interface StoryUser {
+    anonymous_name: string,
+    created_on: string, // Assuming this is a string representing a date (you may want to use Date type if working with actual Date objects)
+    email: string,
+    bio: string,
+    user_id: string
 }
 
 export const StorySchema = {

@@ -13,6 +13,7 @@ import UserStoryComponent from "../../components/userstory"
 import './index.css'
 import NotFound from "../../components/notfound"
 import OptionsScreen from "../../components/options_screen"
+import { MdPeopleAlt } from "react-icons/md"
 
 interface UserPageProps{
   subPage: "stories" | "favorites"
@@ -21,6 +22,7 @@ interface UserPageProps{
 const UserPage: React.FC<UserPageProps> = ( props ) => {
   
   const [user, setUser] = useState<User>()
+  const [isSendingFriendLoading, setIsSendingFriendLoading] = useState(false)
   const [showOptions, setShowOptions] = useState(false)
   const [error, setError] = useState(false)
   const [favoriteStories, setFavoriteStories] = useState<UserStory[]>()
@@ -64,6 +66,32 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
     .catch(err => console.log(err))
   }
 
+  const createFriendRequest = async () => {
+    setIsSendingFriendLoading(true)
+    await axios.post(BASE_URL + "/friends/", { friend_id: userId }, { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
+    .then(res => {
+      if (user) {
+        setUser({
+          ...user,
+          friend: {
+            friendable: false,
+            is_request_pending: true
+          }
+        })
+        console.log({
+          ...user,
+          friend: {
+            friendable: user?.friend.friendable,
+            is_request_pending: true
+          }
+        })
+      }
+    })
+    .catch(err => console.log(err))
+    setIsSendingFriendLoading(false)
+  }
+
+
   return (
     <>
       {showOptions &&
@@ -101,16 +129,50 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                   </div>
                   <div className="center flex">
                     <div>
-                      <h2 className="text-xl font-semibold font-cabin">{user?.anonymous_name}</h2>
+                      <div className="flex">
+                        <h2 className="text-xl font-semibold font-cabin">{user?.anonymous_name}</h2>
+                        {!user?.friend.is_request_pending && !user?.friend.friendable ? (
+                          <div className="rounded-md text-xs bg-[#668AE4] bg-opacity-20 ml-4 font-semibold items-center flex font-cabin pr-2 pl-2 text-[#668AE4]">
+                            <MdPeopleAlt size={18} />
+                            <p className="pl-1">Friends</p>
+                          </div>
+                        ): null}
+                      </div>
                       <p className="mt-1 text-md text-[gray] font-cabin">{user?.bio}</p>
                       <p className="mt-3 text-sm text-[gray] font-cabin">On Judjen from {formatDate(user?.created_on)}</p>
                     </div>
                   </div>
-                  {user?.own ? (
-                    <div className="ml-14">
-                      <button onClick={() => setShowOptions(true)}><RiSettings5Fill color="#d4d4d4" size={24}/></button>
-                    </div>
-                  ) : null}
+                  <div className="pl-14 items-center justify-around flex">
+                    {user?.own ? (
+                      <div className="block-none ml-14">
+                        <button onClick={() => setShowOptions(true)}><RiSettings5Fill color="#d4d4d4" size={24}/></button>
+                      </div>
+                    ) : (
+                      user?.friend.friendable ? (
+                        <div>
+                          {isSendingFriendLoading ? (
+                            <button disabled onClick={() => createFriendRequest()} className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >
+                              <SpinnerCircular
+                                color="white"
+                                speed={254}
+                                size={24}
+                                thickness={154}
+                                secondaryColor="transparent"
+                              />
+                            </button>
+                          ):(
+                            <button onClick={() => createFriendRequest()} className="hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >Add Friend</button>
+                          )}
+                        </div>
+                      ) : (
+                        user?.friend.is_request_pending ? (
+                          <div>
+                            <button disabled onClick={() => {}} className="border-2 rounded-md text-[#668AE4] font-cabin border-[#668AE4] pr-6 pl-6 p-3" >Pending Request</button>
+                          </div>
+                        ) : null
+                      )
+                    )}
+                  </div>
                 </div>
                 <div className="mt-8 flex">
                   <ul className="gap-3 flex">
@@ -139,7 +201,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                   </ul>
                 </div>
               </div>
-              <div className="pt-4 pl-14 mt-64">
+              <div className="mtuserstory pt-4 pl-14">
                 {props.subPage == 'stories' ? (
                   <div style={{ maxWidth: 1000 }} className="flex-wrap flex mt-4">
                     {stories && stories.length > 0 ? (
