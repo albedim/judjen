@@ -207,7 +207,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                   </ul>
                 </div>
               </div>
-              <div className="none-block pl-4 pb-8 top-0 p-14 bg-[white] w-4/5 z-20 fixed">
+              <div className="none-block pl-4 pb-8 top-14 p-8 bg-[white] w-4/5 z-20 fixed">
                 <div className="flex">
                   {user?.own ? (
                     <div className="block-none ml-14">
