@@ -56,8 +56,16 @@ const ReceivedFriendRequestComponent: React.FC<ReceivedFriendRequestProps> = ( p
         </div>
         <div className="pl-4 items-center justify-around flex">
           <div className="flex">
-            <div className="pr-2"><button onClick={() => acceptRequest(props.friend.user_id)} ><IoIosAddCircleOutline color="green" size={24}/></button></div>
-            <div><button onClick={() => rejectRequest(props.friend.user_id)} ><IoIosRemoveCircleOutline color="red" size={24}/></button></div>
+            <div className="pr-2">
+              <button onClick={() => acceptRequest(props.friend.user_id)} >
+                <IoIosAddCircleOutline color="green" size={24}/>
+              </button>
+            </div>
+            <div>
+              <button onClick={() => rejectRequest(props.friend.user_id)} >
+                <IoIosRemoveCircleOutline color="red" size={24}/>
+              </button>
+            </div>
           </div>
         </div>
       </div>

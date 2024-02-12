@@ -39,6 +39,14 @@ export interface User {
     user_id: string;
 }
 
+interface NotificationUser {
+    anonymous_name: string;
+    created_on: string; // Assuming this is a string representing a date (you may want to use Date type if working with actual Date objects)
+    email: string;
+    bio: string,
+    user_id: string;
+}
+
 export interface Story {
     content: string;
     created_on: string; // Assuming this is a string representing a date (you may want to use Date type if working with actual Date objects)
@@ -84,6 +92,14 @@ export const StorySchema = {
 export interface Topic{
     tag_id: number,
     name: string
+}
+
+export interface Notification{
+    content: string,
+    notification_id: number,
+    href: string,
+    datetime: string,
+    target: NotificationUser
 }
 
 export interface UserStory {

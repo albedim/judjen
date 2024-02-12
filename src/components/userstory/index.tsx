@@ -56,7 +56,11 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
         <div className="items-center flex">
           {!props.story.is_page_user_owner ? (
             <div className="flex">
-              <Link to={"/user/" + props.story.user.user_id} ><p className="text-[gray] hover:underline font-cabin">By {props.story.user.anonymous_name}</p></Link>           
+              <Link to={"/user/" + props.story.user.user_id} >
+                <p className="text-[gray] hover:underline font-cabin">
+                  By {props.story.user.anonymous_name}
+                </p>
+              </Link>           
               {props.showRepost ? (
                 <div className="rounded-md text-xs bg-[#668AE4] bg-opacity-20 ml-4 font-semibold items-center flex font-cabin pr-2 pl-2 text-[#668AE4]">
                   <FaRetweet size={18} />

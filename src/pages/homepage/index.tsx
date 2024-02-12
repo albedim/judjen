@@ -15,6 +15,7 @@ import { MdNavigateNext, MdNextPlan, MdOutlineNextPlan, MdOutlineNextWeek, MdSki
 import { IoIosArrowForward } from "react-icons/io"
 import { Dropdown } from "flowbite-react"
 import { IoPeopleCircleOutline, IoPeopleSharp } from "react-icons/io5"
+import NavBar from "../../components/navbar"
 
 const HomePage = () => {
 
@@ -56,7 +57,7 @@ const HomePage = () => {
   return (
     <>
       <LoginScreen/>
-      <div className="mlpage p-8 w-full">
+      <div className="mt-16 mlpage p-8 w-full">
         <div className="justify-between flex pb-4">
           <Dropdown size={40} style={{ paddingLeft: "0px", fontWeight: 900, border: 'none', fontFamily: 'Cabin', backgroundColor: 'white' }} className="rounded-md bg-[white] text-xl font-cabin" label={storiesType} dismissOnClick={true}>
             <Dropdown.Item 

@@ -40,7 +40,7 @@ const CreatePasswordScreen = () => {
   }
 
   return(
-    <div className="items-center justify-around flex backdrop-blur-sm absolute h-screen w-screen">
+    <div className="z-40 items-center justify-around flex backdrop-blur-sm absolute h-screen w-screen">
       <div className="border p-4 rounded-md bg-[white]">
         <div className="pb-2 border-b">
           <h2 className="font-semibold text-xl font-cabin">Recover your password</h2>

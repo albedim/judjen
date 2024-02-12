@@ -91,7 +91,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
   }
 
   return (
-    <div className="mlpage p-8">
+    <div className="mt-16 mlpage p-8">
       <div className="pb-4">
         <h1 className="text-xl font-semibold font-cabin" >Friends</h1>
       </div>

@@ -75,7 +75,7 @@ const Create = () => {
 
 
   return (
-    <div className="mlpage p-8">
+    <div className="mt-16 mlpage p-8">
       <div className="pb-4">
         <h1 className="text-xl font-semibold font-cabin" >Create</h1>
       </div>

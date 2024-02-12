@@ -3,7 +3,7 @@ import '../index.css'
 import { RiSettings5Fill } from 'react-icons/ri'
 import React, { useEffect, useState } from "react"
 import { FaBookmark, FaRetweet } from "react-icons/fa6"
-import { Story, StorySchema, Topic, User, UserStory } from "../../typos/interfaces"
+import { Story, Topic, User, UserStory } from "../../typos/interfaces"
 import axios from "axios"
 import { BASE_URL, getCookie } from "../../utils/api"
 import { SpinnerCircular } from "spinners-react"
@@ -108,7 +108,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
       {storyScreenVisible &&
         <StoryScreen onClose={() => setStoryScreenVisible(false)} story={screenStory} />
       }
-      <div className="mlpage">
+      <div className="pt-0 mlpage">
         {isLoading ? (
           <div className="items-center justify-around flex">
             <SpinnerCircular
@@ -123,7 +123,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
             <NotFound/>
           ):(
             <div>
-              <div className="block-none pb-8 top-0 p-14 bg-[white] w-full z-30 fixed">
+              <div className="z-20 block-none pb-8 top-8 p-14 bg-[white] w-full fixed">
                 <div className="flex">
                   <div className="pr-8 center flex">
                     <Avatar
@@ -207,7 +207,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                   </ul>
                 </div>
               </div>
-              <div className="none-block pl-4 pb-8 top-0 p-14 bg-[white] w-4/5 z-30 fixed">
+              <div className="none-block pl-4 pb-8 top-0 p-14 bg-[white] w-4/5 z-20 fixed">
                 <div className="flex">
                   {user?.own ? (
                     <div className="block-none ml-14">
@@ -283,7 +283,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                   </ul>
                 </div>
               </div>
-              <div className="pluserstory mtuserstory pt-4">
+              <div className="z-10 pluserstory mtuserstory pt-10">
                 {props.subPage == 'stories' ? (
                   <div style={{ maxWidth: 1000 }} className="flex-wrap flex mt-4">
                     {stories && stories.length > 0 ? (
