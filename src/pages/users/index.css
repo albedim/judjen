@@ -1,9 +1,13 @@
-.flex-block{
+.flex-none{
     display: flex;
 }
 
 .block-none{
     display: block;
+}
+
+.none-block{
+    display: none;
 }
 
 .center{
@@ -15,18 +19,28 @@
     margin-top: 256px;
 }
 
+.pluserstory{
+    padding-left: 64px;
+}
+
 @media screen and (max-width: 700px) {
-    .flex-block{
-        display: block;
+    .flex-none{
+        display: none;
     }
     .center{
         justify-content: start !important;
         align-items: start !important;
     }
     .mtuserstory{
-        margin-top: 400px !important;
+        margin-top: 234px !important;
+    }
+    .pluserstory{
+        padding-left: 14px !important;
     }
     .block-none{
         display: none !important;
+    }
+    .none-block{
+        display: block !important;
     }
 }

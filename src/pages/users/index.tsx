@@ -123,8 +123,8 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
             <NotFound/>
           ):(
             <div>
-              <div className="pb-8 top-0 p-14 bg-[white] w-full z-30 fixed">
-                <div className="flex-block">
+              <div className="block-none pb-8 top-0 p-14 bg-[white] w-full z-30 fixed">
+                <div className="flex">
                   <div className="pr-8 center flex">
                     <Avatar
                       size={124}
@@ -207,7 +207,83 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                   </ul>
                 </div>
               </div>
-              <div className="mtuserstory pt-4 pl-14">
+              <div className="none-block pl-4 pb-8 top-0 p-14 bg-[white] w-4/5 z-30 fixed">
+                <div className="flex">
+                  {user?.own ? (
+                    <div className="block-none ml-14">
+                      <button onClick={() => setShowOptions(true)}><RiSettings5Fill color="#d4d4d4" size={24}/></button>
+                    </div>
+                  ) : (
+                    user?.friend.friendable ? (
+                      <div>
+                        {isSendingFriendLoading ? (
+                          <button disabled className="text-sm hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-3 pl-3 p-1" >
+                            <SpinnerCircular
+                              color="white"
+                              speed={254}
+                              size={24}
+                              thickness={154}
+                              secondaryColor="transparent"
+                            />
+                          </button>
+                        ):(
+                          <button onClick={() => createFriendRequest()} className="text-sm hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-3 pl-3 p-1" >Add Friend</button>
+                        )}
+                      </div>
+                    ) : (
+                      user?.friend.is_request_pending ? (
+                        <div>
+                          <button disabled onClick={() => {}} className="text-sm border-2 rounded-md text-[#668AE4] font-cabin border-[#668AE4] pr-3 pl-3 p-1" >Pending Request</button>
+                        </div>
+                      ) : (
+                        <div className="pb-1 pt-1 rounded-md text-xs bg-[#668AE4] bg-opacity-20 font-semibold items-center flex font-cabin pr-2 pl-2 text-[#668AE4]">
+                          <MdPeopleAlt size={18} />
+                          <p className="pl-1">Friends</p>
+                        </div>
+                      )
+                    )
+                  )}
+                  <div className="mt-2 flex">
+                    <Avatar
+                      size={54}
+                      name={user?.anonymous_name}
+                      variant="beam"
+                      colors={["#668AE4", "#4e6dba", "#3a57a1", "#526db3", "#6583cf"]}
+                    />
+                    <div className="ml-2">
+                      <h2 className="text-md font-semibold font-cabin">{user?.anonymous_name}</h2>
+                      <p className="mt-1 text-sm text-[gray] font-cabin">{user?.bio}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-8 flex">
+                  <ul className="gap-3 flex">
+                    {props.subPage == 'stories' ? (
+                      <li className="cursor-pointer text-sm border-b-2 border-[#668AE4] border-b p-2">
+                        <p>Stories</p>
+                      </li>
+                    ):(
+                      <Link onClick={() => getStories()} to={"/user/" + userId}>
+                        <li className="cursor-pointer transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
+                          <p>Stories</p>
+                        </li>
+                      </Link>
+                    )}
+                    {props.subPage == 'favorites' ? (
+                      <li className="cursor-pointer flex text-sm border-b-2 border-[#668AE4] border-b p-2">
+                        <p>Favorite Stories</p>
+                      </li>
+                    ):(
+                      <Link onClick={() => getFavoriteStories()} to={"/user/" + userId + "/favorites"}>
+                        <li className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
+                          <p>Favorite Stories</p>
+                        </li>
+                      </Link>
+                    )}
+                  </ul>
+                </div>
+              </div>
+              <div className="pluserstory mtuserstory pt-4">
                 {props.subPage == 'stories' ? (
                   <div style={{ maxWidth: 1000 }} className="flex-wrap flex mt-4">
                     {stories && stories.length > 0 ? (
