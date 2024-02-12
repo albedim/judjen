@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 import { SpinnerCircular } from "spinners-react"
 import './index.css'
 import { FaBookmark, FaRetweet } from "react-icons/fa6"
+import { formatDate } from "../../utils/dates"
 
 interface StoryProps{
   onRepost: (created: boolean) => void
@@ -37,17 +38,20 @@ const StoryComponent: React.FC<StoryProps> = ( props ) => {
 
   return(
     <div className="bg-[#fcfcfc] story_width p-4 rounded-md border">
-      <div className="flex">
-        {props.story.topics.map((topic: Topic) => (
-          <div className="pl-0 p-1">
-            <div 
-              style={{ paddingBottom: 2, paddingTop: 2 }} 
-              className="items-center flex text-xs font-cabin text-[white] pr-2 pl-2 rounded-md bg-[#668AE4]"
-            >
-              <p>{topic.name}</p>
+      <div className="items-center justify-between flex">
+        <div className="flex">
+          {props.story.topics.map((topic: Topic) => (
+            <div className="pl-0 p-1">
+              <div 
+                style={{ paddingBottom: 2, paddingTop: 2 }} 
+                className="items-center flex text-xs font-cabin text-[white] pr-2 pl-2 rounded-md bg-[#668AE4]"
+              >
+                <p>{topic.name}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <p className="text-xs text-[gray] font-cabin">{formatDate(props.story.created_on)}</p>
       </div>
       <h1 className="mt-2 font-semibold text-xl font-cabin">{props.story.title}</h1>
       <div className="items-center flex">
