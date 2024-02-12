@@ -57,7 +57,7 @@ const HomePage = () => {
   return (
     <>
       <LoginScreen/>
-      <div className="mt-16 mlpage p-8 w-full">
+      <div className="mt-16 mlpage p-8 w-4/5">
         <div className="justify-between flex pb-4">
           <Dropdown size={40} style={{ paddingLeft: "0px", fontWeight: 900, border: 'none', fontFamily: 'Cabin', backgroundColor: 'white' }} className="rounded-md bg-[white] text-xl font-cabin" label={storiesType} dismissOnClick={true}>
             <Dropdown.Item 
@@ -81,7 +81,7 @@ const HomePage = () => {
               <p className="ml-2">Friends</p>
             </Dropdown.Item>
           </Dropdown>
-          <button onClick={() => getStory()} className="none-flex mr-14 items-center hover:hover:opacity-60 text-[#668AE4] pl-6">
+          <button onClick={() => getStory()} className="none-flex items-center hover:hover:opacity-60 text-[#668AE4] pl-6">
             <p className="text-md font-semibold font-cabin" >Next</p>
             <IoIosArrowForward size={24}/>
           </button>
