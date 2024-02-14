@@ -28,19 +28,24 @@ const storiesTypes = [
   }
 ]
 
+interface storiesTypesInterface{
+  name: string,
+  label: string
+}
+
 const getStoriesTypeFromName = (name: string) => {
   const res = storiesTypes.filter((storiesType) => storiesType.name == name)
   if (res.length > 0) {
     return res[0]
   }
-  return null
+  return storiesTypes[0]
 }
 
 const HomePage = () => {
 
   const [story, setStory] = useState<Story>(StorySchema)
   const [searchParams, setSearchParams] = useSearchParams()
-  const [storiesType, setStoriesType] = useState<string>()
+  const [storiesType, setStoriesType] = useState<storiesTypesInterface>(storiesTypes[0])
 
   const getStory = async () => {
     await axios.get(BASE_URL + "/stories/", { headers: { Authorization: 'Bearer ' + getCookie('jwt-token') } })
@@ -72,12 +77,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const tab: any = searchParams.get("tab")
-    const storiesType = getStoriesTypeFromName(tab)
-    if (storiesType !== null) {
-      setStoriesType(storiesType?.label)
-    } else {
-      setStoriesType(storiesTypes[0].label)
-    }
+    setStoriesType(getStoriesTypeFromName(tab))
     getStory()
   },[])
 
@@ -86,27 +86,19 @@ const HomePage = () => {
       <LoginScreen/>
       <div className="mt-16 mlpage p-8 w-4/5">
         <div className="justify-between flex pb-4">
-          <Dropdown size={40} style={{ paddingLeft: "0px", fontWeight: 900, border: 'none', fontFamily: 'Cabin', backgroundColor: 'white' }} className="rounded-md bg-[white] text-xl font-cabin" label={storiesType} dismissOnClick={true}>
-            <Dropdown.Item 
-              className="transition-all hover:text-[#668AE4] p-4 pt-2 pb-2 font-semibold font-cabin text-lg" 
-              onClick={() => {
-                setStoriesType(getStoriesTypeFromName("foryou")?.label)
-                getStory()
-              }}
-            >
-              <FaRegStar/>
-              <p className="ml-2">For You</p>
-            </Dropdown.Item>
-            <Dropdown.Item 
-              className="transition-all hover:text-[#668AE4] p-4 pt-2 pb-2 font-semibold font-cabin text-lg" 
-              onClick={() => {
-                setStoriesType(getStoriesTypeFromName("friends")?.label)
-                getFriendStory()
-              }}
-            >
-              <IoPeopleCircleOutline/> 
-              <p className="ml-2">Friends</p>
-            </Dropdown.Item>
+          <Dropdown size={40} style={{ paddingLeft: "0px", fontWeight: 900, border: 'none', fontFamily: 'Cabin', backgroundColor: 'white' }} className="rounded-md bg-[white] text-xl font-cabin" label={storiesType.label} dismissOnClick={true}>
+            {storiesTypes.map((storiesType) => (
+              <Dropdown.Item 
+                className="transition-all hover:text-[#668AE4] p-4 pt-2 pb-2 font-semibold font-cabin text-lg" 
+                onClick={() => {
+                  setStoriesType(getStoriesTypeFromName(storiesType.name))
+                  getStory()
+                }}
+              >
+                <FaRegStar/>
+                <p className="ml-2">{storiesType.label}</p>
+              </Dropdown.Item>
+            ))}
           </Dropdown>
           <button onClick={() => getStory()} className="none-flex items-center hover:hover:opacity-60 text-[#668AE4] pl-6">
             <p className="text-md font-semibold font-cabin" >Next</p>
@@ -118,7 +110,7 @@ const HomePage = () => {
             <>
               <StoryComponent onFavorite={favorite} onRepost={repost} story={story}/>
               <button onClick={() => {
-                if (storiesType == 'For You') {
+                if (storiesType.name == 'foryou') {
                   getStory()
                 } else {
                   getFriendStory()
