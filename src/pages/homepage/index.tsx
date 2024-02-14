@@ -17,11 +17,30 @@ import { Dropdown } from "flowbite-react"
 import { IoPeopleCircleOutline, IoPeopleSharp } from "react-icons/io5"
 import NavBar from "../../components/navbar"
 
+const storiesTypes = [
+  {
+    name: 'foryou',
+    label: 'For You'
+  },
+  {
+    name: 'friends',
+    label: 'Friends'
+  }
+]
+
+const getStoriesTypeFromName = (name: string) => {
+  const res = storiesTypes.filter((storiesType) => storiesType.name == name)
+  if (res.length > 0) {
+    return res[0]
+  }
+  return null
+}
+
 const HomePage = () => {
 
   const [story, setStory] = useState<Story>(StorySchema)
   const [searchParams, setSearchParams] = useSearchParams()
-  const [storiesType, setStoriesType] = useState<"Friends" | "For You">()
+  const [storiesType, setStoriesType] = useState<string>()
 
   const getStory = async () => {
     await axios.get(BASE_URL + "/stories/", { headers: { Authorization: 'Bearer ' + getCookie('jwt-token') } })
@@ -51,22 +70,13 @@ const HomePage = () => {
     })
   }
 
-  const isTabValid = () => {
-    if (searchParams.has("tab")) {
-      const tab = searchParams.get("tab")
-      if (tab === 'For You' || tab === 'Friends') {
-        return true
-      }
-    }
-    return false
-  }
-
   useEffect(() => {
-    if (isTabValid()) {
-      const tab: any = searchParams.get("tab")
-      setStoriesType(tab)
+    const tab: any = searchParams.get("tab")
+    const storiesType = getStoriesTypeFromName(tab)
+    if (storiesType !== null) {
+      setStoriesType(storiesType?.label)
     } else {
-      setStoriesType("For You")
+      setStoriesType(storiesTypes[0].label)
     }
     getStory()
   },[])
@@ -80,7 +90,7 @@ const HomePage = () => {
             <Dropdown.Item 
               className="transition-all hover:text-[#668AE4] p-4 pt-2 pb-2 font-semibold font-cabin text-lg" 
               onClick={() => {
-                setStoriesType("For You")
+                setStoriesType(getStoriesTypeFromName("foryou")?.label)
                 getStory()
               }}
             >
@@ -90,7 +100,7 @@ const HomePage = () => {
             <Dropdown.Item 
               className="transition-all hover:text-[#668AE4] p-4 pt-2 pb-2 font-semibold font-cabin text-lg" 
               onClick={() => {
-                setStoriesType("Friends")
+                setStoriesType(getStoriesTypeFromName("friends")?.label)
                 getFriendStory()
               }}
             >
