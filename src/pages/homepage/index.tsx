@@ -8,7 +8,7 @@ import axios from "axios"
 import { BASE_URL, getCookie } from "../../utils/api"
 import { SpinnerCircular } from "spinners-react"
 import LoginScreen from "../../components/login_screen"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import StoryComponent from "../../components/story"
 import NotFound from "../../components/notfound"
 import { MdNavigateNext, MdNextPlan, MdOutlineNextPlan, MdOutlineNextWeek, MdSkipNext } from "react-icons/md"
@@ -20,7 +20,8 @@ import NavBar from "../../components/navbar"
 const HomePage = () => {
 
   const [story, setStory] = useState<Story>(StorySchema)
-  const [storiesType, setStoriesType] = useState<"Friends" | "For You">("For You")
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [storiesType, setStoriesType] = useState<"Friends" | "For You">()
 
   const getStory = async () => {
     await axios.get(BASE_URL + "/stories/", { headers: { Authorization: 'Bearer ' + getCookie('jwt-token') } })
@@ -50,7 +51,23 @@ const HomePage = () => {
     })
   }
 
+  const isTabValid = () => {
+    if (searchParams.has("tab")) {
+      const tab = searchParams.get("tab")
+      if (tab === 'For You' || tab === 'Friends') {
+        return true
+      }
+    }
+    return false
+  }
+
   useEffect(() => {
+    if (isTabValid()) {
+      const tab: any = searchParams.get("tab")
+      setStoriesType(tab)
+    } else {
+      setStoriesType("For You")
+    }
     getStory()
   },[])
 

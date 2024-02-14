@@ -11,6 +11,7 @@ import { isLoggedIn } from './utils/api';
 import RecoverPasswordScreen from './components/recover_password_screen';
 import CreatePasswordScreen from './components/create_password_screen';
 import Layout from './components/layout';
+import Page from './pages/page';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           path="/" 
           element={<Layout sideBarPage='stories'><HomePage/></Layout>}
         />
+        <Route path='/test' element={<Page/>}/>
         <Route 
           path="/recover" 
           element={<Layout sideBarPage='stories' ><RecoverPasswordScreen/></Layout>} 
