@@ -20,10 +20,12 @@ import NavBar from "../../components/navbar"
 const storiesTypes = [
   {
     name: 'foryou',
+    icon: <FaRegStar/>,
     label: 'For You'
   },
   {
     name: 'friends',
+    icon: <IoPeopleCircleOutline/>,
     label: 'Friends'
   }
 ]
@@ -95,7 +97,7 @@ const HomePage = () => {
                   getStory()
                 }}
               >
-                <FaRegStar/>
+                {storiesType.icon}
                 <p className="ml-2">{storiesType.label}</p>
               </Dropdown.Item>
             ))}
