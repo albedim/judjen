@@ -79,7 +79,7 @@ const HomePage = () => {
     const tab: any = searchParams.get("tab")
     setStoriesType(getStoriesTypeFromName(tab))
     getStory()
-  },[])
+  },[searchParams.get("tab")])
 
   return (
     <>
