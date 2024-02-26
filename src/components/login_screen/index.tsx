@@ -98,7 +98,7 @@ const LoginScreen = () => {
     setSignupRequest({ 
       ...signupRequest, 
       anonymous_name: namesWithoutNumbers[Math.floor(Math.random() * namesWithoutNumbers.length)] + " " +
-          firstNames[Math.floor(Math.random() * firstNames.length)] + " " + Math.floor(Math.random() * (200 - 100 + 1) + 100)
+          /*firstNames[Math.floor(Math.random() * firstNames.length)] + " " +*/ Math.floor(Math.random() * (200 - 100 + 1) + 100)
     })
   }
 
