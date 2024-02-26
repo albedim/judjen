@@ -63,7 +63,7 @@ const NavBarNotificationPanel: React.FC<NavBarNotificationPanelProps> = ( props 
             </div>
           ))
         ):(
-          <NotFound message="No notifications found"/>
+          <NotFound message="Non sono state trovate notifiche"/>
         )}
       </div>
     </div>

@@ -158,7 +158,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                   <FriendComponent setFriends={(res) => setFriends(res)} friend={friend} />
                 ))
               ):(
-                <NotFound/>
+                <NotFound message="Non riusciamo a caricare i tuoi amici"/>
               )}
             </div>
           ):(
@@ -205,7 +205,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                         <SentFriendRequestComponent friend={friend}/>
                       ))
                     ):(
-                      <NotFound/>
+                      <NotFound message="Non riusciamo a caricare le tue richieste di amicizia"/>
                     )}
                   </div>
                 </div>
@@ -221,7 +221,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                       }} friend={friend} />
                     ))
                   ):(
-                    <NotFound/>
+                    <NotFound message="Non riusciamo a caricare le tue richieste di amicizia"/>
                   )}
                 </div>
             ):(

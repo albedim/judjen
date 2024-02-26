@@ -128,7 +128,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
           </div>
         ):(
           error ? (
-            <NotFound/>
+            <NotFound message="Questo utente non esiste"/>
           ):(
             <div>
               <div className="z-20 block-none pb-8 top-8 p-14 bg-[white] w-full fixed">
@@ -307,7 +307,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                           story={story} />
                       ))
                     ):(
-                      <NotFound/>
+                      <NotFound message="Non riusciamo a caricare le storie di questo utente"/>
                     )}
                   </div>
                 ):(
@@ -326,7 +326,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                             story={story} />
                         ))
                       ):(
-                        <NotFound/>
+                        <NotFound message="Non riusciamo a caricare le storie di questo utente"/>
                       )}
                     </div>
                   ):(
