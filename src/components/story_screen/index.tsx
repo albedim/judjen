@@ -54,7 +54,7 @@ const StoryScreen: React.FC<StoryScreenProps> = ( props ) => {
             </Link>
             </div>
         </div>
-        <div className="pb-4 mt-4">
+        <div style={{ maxHeight: 445 }} className="overflow-y-scroll pb-4 mt-4">
           <p style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }} >{props.story.content}</p>
         </div>
       </div>
