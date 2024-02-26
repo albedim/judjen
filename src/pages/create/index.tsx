@@ -4,8 +4,8 @@ import Avatar from "boring-avatars"
 import { useEffect, useState } from "react"
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io"
 import { MdCancel } from "react-icons/md"
-import { Link } from "react-router-dom"
-import { BASE_URL, getCookie } from "../../utils/api"
+import { Link, useNavigate } from "react-router-dom"
+import { BASE_URL, getCookie, isLoggedIn } from "../../utils/api"
 import { Topic } from "../../typos/interfaces"
 import { SpinnerCircular } from "spinners-react"
 
@@ -18,6 +18,7 @@ const Create = () => {
     title: '',
     content: ''
   })
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
  
   const addTopic = (topicId: string) => {
@@ -71,6 +72,12 @@ const Create = () => {
     .then(res => console.log())
     .catch(err => console.log(err))
     setIsLoading(false)
+  }
+
+  const handleAuth = async () => {
+    if (!await isLoggedIn()){
+      navigate("/")
+    }
   }
 
 

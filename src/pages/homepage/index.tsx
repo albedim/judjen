@@ -5,10 +5,10 @@ import { useEffect, useState } from "react"
 import { FaBookmark, FaRegStar, FaRetweet } from "react-icons/fa6"
 import { Story, StorySchema, Topic } from "../../typos/interfaces"
 import axios from "axios"
-import { BASE_URL, getCookie } from "../../utils/api"
+import { BASE_URL, getCookie, isLoggedIn } from "../../utils/api"
 import { SpinnerCircular } from "spinners-react"
 import LoginScreen from "../../components/login_screen"
-import { Link, useSearchParams } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import StoryComponent from "../../components/story"
 import NotFound from "../../components/notfound"
 import { MdNavigateNext, MdNextPlan, MdOutlineNextPlan, MdOutlineNextWeek, MdSkipNext } from "react-icons/md"
@@ -46,6 +46,7 @@ const getStoriesTypeFromName = (name: string) => {
 const HomePage = () => {
 
   const [story, setStory] = useState<Story>(StorySchema)
+  const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const [storiesType, setStoriesType] = useState<storiesTypesInterface>(storiesTypes[0])
 
@@ -78,10 +79,17 @@ const HomePage = () => {
   }
 
   useEffect(() => {
+    handleAuth()
     const tab: any = searchParams.get("tab")
     setStoriesType(getStoriesTypeFromName(tab))
     getStory()
   },[searchParams])
+
+  const handleAuth = async () => {
+    if (!await isLoggedIn()){
+      navigate("/")
+    }
+  }
 
   return (
     <>

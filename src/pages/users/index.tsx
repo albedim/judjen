@@ -5,10 +5,10 @@ import React, { useEffect, useState } from "react"
 import { FaBookmark, FaRetweet } from "react-icons/fa6"
 import { Story, Topic, User, UserStory } from "../../typos/interfaces"
 import axios from "axios"
-import { BASE_URL, getCookie } from "../../utils/api"
+import { BASE_URL, getCookie, isLoggedIn } from "../../utils/api"
 import { SpinnerCircular } from "spinners-react"
 import { formatDate } from "../../utils/dates"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import UserStoryComponent from "../../components/userstory"
 import './index.css'
 import NotFound from "../../components/notfound"
@@ -33,6 +33,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
   const [isFavoriteLoading, setIsFavoriteLoading] = useState(false)
   const [stories, setStories] = useState<UserStory[]>()
   const userId = useParams().userId
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
 
   const getUser = async () => {
@@ -49,9 +50,16 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
   }
 
   useEffect(() => {
+    handleAuth()
     getUser()
     getStories()
   },[userId])
+
+  const handleAuth = async () => {
+    if (!await isLoggedIn()){
+      navigate("/")
+    }
+  }
 
   const getStories = async () => {
     await axios.get(BASE_URL + "/stories/" + userId, { headers: { Authorization: "Bearer " + getCookie("jwt-token") } })
