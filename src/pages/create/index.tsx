@@ -57,6 +57,7 @@ const Create = () => {
   }
 
   useEffect(() => {
+    handleAuth()
     getTopics()
   },[])
 
