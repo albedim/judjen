@@ -52,7 +52,7 @@ const SideBar: React.FC<SideBarProps> = ( props ) => {
                 <div
                   className='text-[#668AE4] transition-all w-full p-2 flex bg-opacity-10 bg-[#668AE4] rounded-md'>
                   <div className='items-center justify-around flex'><FaBookBookmark size={14} /></div>
-                  <p className='block-none font-cabin pl-2' >Stories</p>
+                  <p className='block-none font-cabin pl-2' >Storie</p>
                 </div>
               ):(
                 <div
@@ -60,7 +60,7 @@ const SideBar: React.FC<SideBarProps> = ( props ) => {
                              hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'
                 >
                   <div className='items-center justify-around flex'><FaBookBookmark size={14} /></div>
-                  <p className='block-none font-cabin pl-2' >Stories</p>
+                  <p className='block-none font-cabin pl-2' >Storie</p>
                 </div>
               )}
             </li>
@@ -70,14 +70,14 @@ const SideBar: React.FC<SideBarProps> = ( props ) => {
               {props.page == 'friends' ? (
                 <div className='text-[#668AE4] transition-all w-full p-2 flex bg-opacity-10 bg-[#668AE4] rounded-md'>
                   <div className='items-center justify-around flex'><MdPeopleAlt size={14} /></div>
-                  <p className='block-none font-cabin pl-2' >Friends</p>
+                  <p className='block-none font-cabin pl-2' >Amici</p>
                 </div>
               ):(
                 <div className='hover:text-[#668AE4] transition-all 
                                 w-full p-2 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'
                 >
                   <div className='items-center justify-around flex'><MdPeopleAlt size={14} /></div>
-                  <p className='block-none font-cabin pl-2' >Friends</p>
+                  <p className='block-none font-cabin pl-2' >Amici</p>
                 </div>
               )}
             </li>
@@ -89,14 +89,14 @@ const SideBar: React.FC<SideBarProps> = ( props ) => {
                                 bg-opacity-10 bg-[#668AE4] rounded-md'
                 >
                   <div className='items-center justify-around flex'><IoIosCreate size={14} /></div>
-                  <p className='block-none font-cabin pl-2' >Create Story</p>
+                  <p className='block-none font-cabin pl-2' >Crea una storia</p>
                 </div>
               ):(
                 <div className='hover:text-[#668AE4] transition-all w-full 
                                 p-2 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'
                 >
                   <div className='items-center justify-around flex'><IoIosCreate size={14} /></div>
-                  <p className='block-none font-cabin pl-2' >Create Story</p>
+                  <p className='block-none font-cabin pl-2' >Crea una storia</p>
                 </div>
               )}
             </li>
@@ -112,14 +112,14 @@ const SideBar: React.FC<SideBarProps> = ( props ) => {
                                 w-full p-2 flex bg-opacity-10 bg-[#668AE4] rounded-md'
                 >
                   <div className='items-center justify-around flex'><IoMdPerson size={14} /></div>
-                  <p className='block-none font-cabin pl-2' >Profile</p>
+                  <p className='block-none font-cabin pl-2' >Profilo</p>
                 </div>
               ):(
                 <div className='hover:text-[#668AE4] transition-all w-full p-2 
                                 flex hover:bg-opacity-10 hover:bg-[#668AE4] rounded-md'
                 >
                   <div className='items-center justify-around flex'><IoMdPerson size={14} /></div>
-                  <p className='block-none font-cabin pl-2' >Profile</p>
+                  <p className='block-none font-cabin pl-2' >Profilo</p>
                 </div>
               )}
             </li>
@@ -134,7 +134,7 @@ const SideBar: React.FC<SideBarProps> = ( props ) => {
           >
             <div className='hover:text-[white] transition-all w-full p-2 flex hover:bg-[#D33939] rounded-md'>
               <div className='items-center justify-around flex'><IoLogOut size={14} /></div>
-              <p className='block-none font-cabin pl-2' >Log Out</p>
+              <p className='block-none font-cabin pl-2' >Esci</p>
             </div>
           </li>
         </ul>

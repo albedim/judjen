@@ -51,7 +51,7 @@ const ReceivedFriendRequestComponent: React.FC<ReceivedFriendRequestProps> = ( p
           </div>
           <div className="pl-2">
             <p className="text-md font-semibold font-cabin">{props.friend.anonymous_name}</p>
-            <p className="text-sm text-[gray] font-cabin">Received on {props.friend.received_on}</p>
+            <p className="text-sm text-[gray] font-cabin">Ricevuta il {props.friend.received_on}</p>
           </div>
         </div>
         <div className="pl-4 items-center justify-around flex">

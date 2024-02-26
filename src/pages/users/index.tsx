@@ -140,12 +140,12 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                         {!user?.friend.is_request_pending && !user?.friend.friendable ? (
                           <div className="rounded-md text-xs bg-[#668AE4] bg-opacity-20 ml-4 font-semibold items-center flex font-cabin pr-2 pl-2 text-[#668AE4]">
                             <MdPeopleAlt size={18} />
-                            <p className="pl-1">Friends</p>
+                            <p className="pl-1">Amici</p>
                           </div>
                         ): null}
                       </div>
                       <p className="mt-1 text-md text-[gray] font-cabin">{user?.bio}</p>
-                      <p className="mt-3 text-sm text-[gray] font-cabin">On Judjen from {formatDate(user?.created_on)}</p>
+                      <p className="mt-3 text-sm text-[gray] font-cabin">Su JudJen dal {formatDate(user?.created_on)}</p>
                     </div>
                   </div>
                   <div className="pl-14 items-center justify-around flex">
@@ -167,13 +167,13 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                               />
                             </button>
                           ):(
-                            <button onClick={() => createFriendRequest()} className="hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >Add Friend</button>
+                            <button onClick={() => createFriendRequest()} className="hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >Aggiungi amico</button>
                           )}
                         </div>
                       ) : (
                         user?.friend.is_request_pending ? (
                           <div>
-                            <button disabled onClick={() => {}} className="border-2 rounded-md text-[#668AE4] font-cabin border-[#668AE4] pr-6 pl-6 p-3" >Pending Request</button>
+                            <button disabled onClick={() => {}} className="border-2 rounded-md text-[#668AE4] font-cabin border-[#668AE4] pr-6 pl-6 p-3" >Richiesta in sospeso</button>
                           </div>
                         ) : null
                       )
@@ -184,23 +184,23 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                   <ul className="gap-3 flex">
                     {props.subPage == 'stories' ? (
                       <li className="cursor-pointer text-sm border-b-2 border-[#668AE4] border-b p-2">
-                        <p>Stories</p>
+                        <p>Storie</p>
                       </li>
                     ):(
                       <Link onClick={() => getStories()} to={"/user/" + userId}>
                         <li className="cursor-pointer transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
-                          <p>Stories</p>
+                          <p>Storie</p>
                         </li>
                       </Link>
                     )}
                     {props.subPage == 'favorites' ? (
                       <li className="cursor-pointer flex text-sm border-b-2 border-[#668AE4] border-b p-2">
-                        <p>Favorite Stories</p>
+                        <p>Storie preferite</p>
                       </li>
                     ):(
                       <Link onClick={() => getFavoriteStories()} to={"/user/" + userId + "/favorites"}>
                         <li className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
-                          <p>Favorite Stories</p>
+                          <p>Storie preferite</p>
                         </li>
                       </Link>
                     )}
@@ -238,7 +238,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                       ) : (
                         <div className="pb-1 pt-1 rounded-md text-xs bg-[#668AE4] bg-opacity-20 font-semibold items-center flex font-cabin pr-2 pl-2 text-[#668AE4]">
                           <MdPeopleAlt size={18} />
-                          <p className="pl-1">Friends</p>
+                          <p className="pl-1">Amici</p>
                         </div>
                       )
                     )
@@ -260,23 +260,23 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                   <ul className="gap-3 flex">
                     {props.subPage == 'stories' ? (
                       <li className="cursor-pointer text-sm border-b-2 border-[#668AE4] border-b p-2">
-                        <p>Stories</p>
+                        <p>Storie</p>
                       </li>
                     ):(
                       <Link onClick={() => getStories()} to={"/user/" + userId}>
                         <li className="cursor-pointer transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
-                          <p>Stories</p>
+                          <p>Storie</p>
                         </li>
                       </Link>
                     )}
                     {props.subPage == 'favorites' ? (
                       <li className="cursor-pointer flex text-sm border-b-2 border-[#668AE4] border-b p-2">
-                        <p>Favorite Stories</p>
+                        <p>Storie preferite</p>
                       </li>
                     ):(
                       <Link onClick={() => getFavoriteStories()} to={"/user/" + userId + "/favorites"}>
                         <li className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
-                          <p>Favorite Stories</p>
+                          <p>Storie preferite</p>
                         </li>
                       </Link>
                     )}

@@ -36,13 +36,13 @@ const RecoverPasswordScreen = () => {
     <div className="z-40 items-center justify-around flex backdrop-blur-sm absolute h-screen w-screen">
       <div className="border p-4 rounded-md bg-[white]">
         <div className="pb-2 border-b">
-          <h2 className="font-semibold text-xl font-cabin">Recover your password</h2>
+          <h2 className="font-semibold text-xl font-cabin">Recupera la tua password</h2>
         </div>
         <form onSubmit={(e) => recover(e)} action="">
           <div className="mt-4">
             <div className="mt-2">
               <div>
-                <label className="font-cabin" htmlFor="email">Your Email</label>
+                <label className="font-cabin" htmlFor="email">Email</label>
               </div>
               <div className="mt-1">
                 <input 
@@ -79,7 +79,7 @@ const RecoverPasswordScreen = () => {
                   className="transition-all hover:bg-[#4C73D5] rounded-md text-[white] 
                   font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
                 >
-                  Recover
+                  Avanti
                 </button>
               )
             ):(
@@ -87,7 +87,7 @@ const RecoverPasswordScreen = () => {
                 disabled 
                 className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
               >
-                Recover
+                Avanti
               </button>
             )}
           </div>

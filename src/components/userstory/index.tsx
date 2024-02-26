@@ -58,21 +58,21 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
             <div className="flex">
               <Link to={"/user/" + props.story.user.user_id} >
                 <p className="text-[gray] hover:underline font-cabin">
-                  By {props.story.user.anonymous_name}
+                  Di {props.story.user.anonymous_name}
                 </p>
               </Link>           
               {props.showRepost ? (
                 <div className="rounded-md text-xs bg-[#668AE4] bg-opacity-20 ml-4 font-semibold items-center flex font-cabin pr-2 pl-2 text-[#668AE4]">
                   <FaRetweet size={18} />
-                  <p className="pl-1">Repost</p>
+                  <p className="pl-1">Repostata</p>
                 </div>
               ) : null}
             </div>
           ):(
             props.story.is_requesting_user_owner ? (
-              <p className="text-[gray] font-cabin">By You</p>          
+              <p className="text-[gray] font-cabin">Tua</p>          
             ):(
-              <p className="text-[gray] font-cabin">By {props.story.user.anonymous_name}</p>
+              <p className="text-[gray] font-cabin">Di {props.story.user.anonymous_name}</p>
             )
           )}
         </div>
@@ -81,7 +81,7 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
             <>
               <p className="font-cabin" style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
                 {props.story.content.length > 246 ? props.story.content.substring(0, 246) + " ..." : props.story.content}
-                <span onClick={props.onOpen} className="ml-2 cursor-pointer underline font-semibold font-cabin">More</span>
+                <span onClick={props.onOpen} className="ml-2 cursor-pointer underline font-semibold font-cabin">Mostra ancora</span>
               </p>
             </>
           ):(

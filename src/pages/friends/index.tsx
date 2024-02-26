@@ -93,36 +93,36 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
   return (
     <div className="mt-16 mlpage p-8">
       <div className="pb-4">
-        <h1 className="text-xl font-semibold font-cabin" >Friends</h1>
+        <h1 className="text-xl font-semibold font-cabin" >Amici</h1>
       </div>
       <div>
         <div>
           <ul className="gap-3 flex">
             {props.subpage == 'friends' ? (
               <li className="cursor-pointer text-sm border-b-2 border-[#668AE4] border-b p-2">
-                <p>Friends</p>
+                <p>Amici</p>
               </li>
             ):(
               <Link onClick={() => getFriends()} to={"/friends"}>
                 <li className="cursor-pointer transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
-                  <p>Friends</p>
+                  <p>Amici</p>
                 </li>
               </Link>
             )}
             {props.subpage == 'sent_requests' ? (
               <li className="cursor-pointer flex text-sm border-b-2 border-[#668AE4] border-b p-2">
-                <p>Sent Requests</p>
+                <p>Richieste inviate</p>
               </li>
             ):(
               <Link onClick={() => getSentFriendRequests()} to={"/friends/requests/sent"}>
                 <li className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
-                  <p>Sent Requests</p>
+                  <p>Richieste inviate</p>
                 </li>
               </Link>
             )}
             {props.subpage == 'received_requests' ? (
               <li className="cursor-pointer flex text-sm border-b-2 border-[#668AE4] border-b p-2">
-                <p>Received Requests</p>
+                <p>Richieste ricevute</p>
                 {receivedFriendRequestsN > 0 ? (
                   <p className="ml-2 font-semibold text-[#668AE4]" >+{receivedFriendRequestsN}</p>
                 ) : null}
@@ -130,7 +130,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
             ):(
               <Link onClick={() => getReceivedFriendRequests()} to={"/friends/requests/received"}>
                 <li className="cursor-pointer flex transition-all text-sm hover:border-b-2 hover:border-[#668AE4] p-2">
-                  <p>Received Requests</p>
+                  <p>Richieste ricevute</p>
                   {receivedFriendRequestsN > 0 ? (
                     <p className="ml-2 font-semibold text-[#668AE4]" >+{receivedFriendRequestsN}</p>
                   ) : null}
@@ -168,7 +168,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                   <input onChange={(e) => {
                     getUsers(e.target.value)
                     setNewFriend(e.target.value)
-                  }} value={newFriend} placeholder="Add friend..." className="rounded-md p-2 border bg-[#fcfcfc]" type="text" />
+                  }} value={newFriend} placeholder="Cerca amico..." className="rounded-md p-2 border bg-[#fcfcfc]" type="text" />
                   <div className="overflow-y-scroll pl-2 rounded-md mt-2 p-4 bg-[#fcfcfc] border" style={{ maxHeight: 284, display: newFriend != "" ? 'block' : "none" }}>
                     {users.map((user: Friend) => (
                       <div className="pb-2">
@@ -197,7 +197,7 @@ const Friends: React.FC<FriendsProps> = ( props ) => {
                 </div>
                 <div className="mt-8">
                   <div className="border-b pb-2">
-                    <h2 className="text-md font-semibold font-cabin" >Pending requests</h2>
+                    <h2 className="text-md font-semibold font-cabin" >Richieste in sospeso</h2>
                   </div>
                   <div className="mt-4">
                     {sentFriendRequests && sentFriendRequests.length > 0 ? (

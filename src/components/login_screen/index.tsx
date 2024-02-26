@@ -38,21 +38,20 @@ const LoginScreen = () => {
 
   const generateName = () => {
     const namesWithoutNumbers = [
-      "Cipher",
-      "Shadow",
-      "Phantom",
-      "Ghost",
+      "Cifrato",
+      "Ombra",
+      "Fantasma",
+      "Spettro",
       "Silhouette",
       "Enigma",
-      "Spectre",
-      "Masked",
-      "Stealth",
+      "Mascherato",
+      "Furtivo",
       "Incognito",
-      "Mystery",
-      "Eclipse",
-      "Whisper",
+      "Misterioso",
+      "Eclissi",
+      "Sussurro",
       "Nebula",
-      "Shrouded"
+      "Velato"
     ];
 
     const firstNames = [
@@ -144,7 +143,7 @@ const LoginScreen = () => {
         <div className="z-40 items-center justify-around flex backdrop-blur-sm absolute h-screen w-screen">
           <div className="border p-4 rounded-md bg-[white]">
             <div className="pb-2 border-b">
-              <h2 className="font-semibold text-xl font-cabin">Log in</h2>
+              <h2 className="font-semibold text-xl font-cabin">Accedi</h2>
             </div>
             <form onSubmit={(e) => login(e)} action="">
               <div className="mt-4">
@@ -186,11 +185,11 @@ const LoginScreen = () => {
                 <div>
                   <p 
                     onClick={() => setPage("signup")} 
-                    className="cursor-pointer text-xs font-cabin">Create an account now
+                    className="cursor-pointer text-xs font-cabin">Crea un profilo anonimo
                   </p>
                   <p 
                     onClick={() => navigate("/recover")} 
-                    className="mt-2 text-[#668AE4] underline cursor-pointer text-xs font-cabin">Forgot your password?
+                    className="mt-2 text-[#668AE4] underline cursor-pointer text-xs font-cabin">Hai dimenticato la password?
                   </p>
                 </div>
                 {request.email != "" && request.password != "" ? (
@@ -211,7 +210,7 @@ const LoginScreen = () => {
                       className="transition-all hover:bg-[#4C73D5] rounded-md text-[white] 
                       font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
                     >
-                      Log In
+                      Accedi
                     </button>
                   )
                 ):(
@@ -219,7 +218,7 @@ const LoginScreen = () => {
                     disabled 
                     className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
                   >
-                    Log In
+                    Accedi
                   </button>
                 )}
               </div>
@@ -232,11 +231,11 @@ const LoginScreen = () => {
       <div className="items-center justify-around flex backdrop-blur-sm absolute h-screen w-screen">
         <div className="border p-4 rounded-md bg-[white]">
           <div className="pb-2 border-b">
-            <h2 className="font-semibold text-xl font-cabin">Sign Up</h2>
+            <h2 className="font-semibold text-xl font-cabin">Crea il tuo profilo</h2>
           </div>
           <div className="mt-4">
             <div className="mt-2">
-              <div><label className="font-cabin" htmlFor="name">Generate your name</label></div>
+              <div><label className="font-cabin" htmlFor="name">Genera un nome anonimo</label></div>
               <div className="items-center flex mt-1">
                 <input 
                   disabled 
@@ -287,7 +286,7 @@ const LoginScreen = () => {
                   onChange={(e) => handleSignupRequest(e)} 
                   value={signupRequest.bio} 
                   name="bio" 
-                  placeholder="This is me in 6 words" 
+                  placeholder="Questo sono io in poche parole" 
                   className="w-64 rounded-md p-2 border" 
                   type="text" 
                 />
@@ -301,7 +300,7 @@ const LoginScreen = () => {
             <div>
               <p 
                 onClick={() => setPage("signin")} 
-                className="cursor-pointer text-xs font-cabin">Log in now
+                className="cursor-pointer text-xs font-cabin">Accedi
               </p>
             </div>
             {isSignUpValid() ? (
@@ -324,12 +323,12 @@ const LoginScreen = () => {
                   className="transition-all hover:bg-[#4C73D5] rounded-md text-[white] 
                              font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
                 >
-                  Get Started
+                  Avanti
                 </button>
               )
             ):(
               <button disabled className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >
-                Get Started
+                Avanti
               </button>
             )}
           </div>

@@ -51,7 +51,7 @@ const OptionsScreen: React.FC<OptionsScreenProps> = ( props ) => {
     <div className="fixed z-40 items-center justify-around flex backdrop-blur-sm h-screen w-screen">
       <div className="border p-4 rounded-md bg-[white]">
         <div className="items-center justify-between flex pb-2 border-b">
-          <h2 className="font-semibold text-xl font-cabin">Account</h2>
+          <h2 className="font-semibold text-xl font-cabin">Il tuo Account</h2>
           <button onClick={() => props.onClose(false)} ><IoClose size={24} color="#d4d4d4" /></button>
         </div>
         <form onSubmit={(e) => change(e)} action="">
@@ -124,7 +124,7 @@ const OptionsScreen: React.FC<OptionsScreenProps> = ( props ) => {
                   className="transition-all hover:bg-[#4C73D5] rounded-md text-[white] 
                   font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
                 >
-                  Change
+                  Cambia
                 </button>
               )
             ):(
@@ -133,7 +133,7 @@ const OptionsScreen: React.FC<OptionsScreenProps> = ( props ) => {
                 className="transition-all rounded-md text-[white] 
                 font-cabin bg-[#668AE4] pr-6 pl-6 p-3" 
               >
-                Change
+                Cambia
               </button>
             )}
           </div>

@@ -30,9 +30,9 @@ const NavBarNotificationPanel: React.FC<NavBarNotificationPanelProps> = ( props 
   return(
     <div className="pr-0 z-50 absolute mt-16 right-4 bg-[white] rounded-md border p-4">
       <div className="mr-4 justify-between flex pb-2 border-b">
-        <p className="font-semibold text-lg font-cabin">Notifications</p>
+        <p className="font-semibold text-lg font-cabin">Notifiche</p>
         <button disabled={props.notifications.length == 0} onClick={() => markAsRead()}>
-          <p className="text-[#668AE4] font-semibold text-sm font-cabin">Mark all as read</p>
+          <p className="text-[#668AE4] font-semibold text-sm font-cabin">Segna come lette</p>
         </button>
       </div>
       <div style={{ width: 340, maxHeight: 540 }} className="overflow-y-scroll mt-4">
@@ -54,7 +54,7 @@ const NavBarNotificationPanel: React.FC<NavBarNotificationPanelProps> = ( props 
                 </div>
               </div>
               <div className="items-center justify-around flex">
-                <a title="Mark ak read">
+                <a title="Segna come letta">
                   <button onClick={() => markAsRead(notification.notification_id)}>
                     <FaCircle className="transition-all hover:opacity-80" size={10.4} color="#668AE4"/>
                   </button>

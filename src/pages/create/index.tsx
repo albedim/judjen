@@ -77,16 +77,26 @@ const Create = () => {
   return (
     <div className="mt-16 mlpage p-8">
       <div className="pb-4">
-        <h1 className="text-xl font-semibold font-cabin" >Create</h1>
+        <h1 className="text-xl font-semibold font-cabin" >Crea una storia</h1>
       </div>
       <div>
         <div className="mt-2">
-          <div><label className="font-cabin" htmlFor="title">Title</label></div>
-          <div className="mt-1"><input onChange={(e) => handleStory(e)} name="title" value={story.title} placeholder="This is my first story..." className="w-64 rounded-md p-2 border" type="text" /></div>
+          <div><label className="font-cabin" htmlFor="title">Titolo</label></div>
+          <div className="mt-1"><input onChange={(e) => handleStory(e)} name="title" value={story.title} placeholder="Questa è la mia prima storia..." className="w-64 rounded-md p-2 border" type="text" /></div>
         </div>
         <div className="mt-2">
-          <div><label className="font-cabin" htmlFor="content">Content</label></div>
-          <div className="mt-1"><textarea onChange={(e) => handleStory(e)} name="content" value={story.content} placeholder="I love cringe stories more than yesterday..." className="w-64 h-44 rounded-md p-2 border" /></div>
+          <div><label className="font-cabin" htmlFor="content">Contenuto</label></div>
+          <div className="mt-1"><textarea onChange={(e) => handleStory(e)} name="content" value={story.content} placeholder="Ogni giorno amo sempre di più leggere storie cringe" className="w-64 h-44 rounded-md p-2 border" /></div>
+          <div className="justify-between items-center flex">
+            <div></div>
+            <p className="font-cabin mt-1 text-sm">{
+              story.content.length > 1500 ? (
+                <span className="text-[red]">{story.content.length}</span>
+              ):(
+                <span>{story.content.length}</span>
+              )}/1500
+            </p>
+          </div>
         </div>
         <div className="mt-2 flex">
           {selectedTopics.map((topic => (
@@ -99,7 +109,7 @@ const Create = () => {
           )))}
         </div>
         <div className="mt-2">
-          <div><label className="font-cabin" htmlFor="topics">Topics</label></div>
+          <div><label className="font-cabin" htmlFor="topics">Tipo</label></div>
           <div className="mt-1">
             <select onChange={(e) => addTopic(e.target.value)} className="w-64 bg-[white] rounded-md p-2 border" >
               <option value={"null"}></option>
@@ -110,7 +120,7 @@ const Create = () => {
           </div>
         </div>
         <div className="mt-8">
-          { selectedTopics.length > 0 && story.title != "" && story.content != "" ? (
+          { selectedTopics.length > 0 && story.title != "" && story.content.length > 0 && story.content.length < 1500 ? (
               isLoading ? (
                 <button disabled className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >
                   <SpinnerCircular
@@ -122,10 +132,10 @@ const Create = () => {
                   />
                 </button>
               ):(
-                <button onClick={() => createStory()} className="hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >Create</button>
+                <button onClick={() => createStory()} className="hover:bg-[#4C73D5] rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >Crea</button>
               )
             ):(
-            <button disabled className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >Create</button>
+            <button disabled className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >Crea</button>
           )}
         </div>
       </div>

@@ -22,7 +22,7 @@ const StoryScreen: React.FC<StoryScreenProps> = ( props ) => {
 
   return(
     <div className="fixed z-40 items-center justify-around flex backdrop-blur-sm h-screen w-screen">
-      <div style={{ maxWidth: 300 }} className="border p-4 rounded-md bg-[white]">
+      <div style={{ maxWidth: 314 }} className="border p-4 rounded-md bg-[white]">
         <div className="justify-between flex">
           <div className="flex">
             {props.story.topics.map((topic: Topic) => (

@@ -21,12 +21,12 @@ const storiesTypes = [
   {
     name: 'foryou',
     icon: <FaRegStar/>,
-    label: 'For You'
+    label: 'Per te'
   },
   {
     name: 'friends',
     icon: <IoPeopleCircleOutline/>,
-    label: 'Friends'
+    label: 'Amici'
   }
 ]
 
@@ -103,7 +103,7 @@ const HomePage = () => {
             ))}
           </Dropdown>
           <button onClick={() => getStory()} className="none-flex items-center hover:hover:opacity-60 text-[#668AE4] pl-6">
-            <p className="text-md font-semibold font-cabin" >Next</p>
+            <p className="text-md font-semibold font-cabin" >Avanti</p>
             <IoIosArrowForward size={24}/>
           </button>
         </div>
@@ -119,11 +119,11 @@ const HomePage = () => {
                 }
               }} className="transition-all block-none hover:hover:opacity-60 text-[#668AE4] pl-6">
                 <IoIosArrowForward size={42}/>
-                <p className="text-center text-md font-semibold font-cabin" >Next</p>
+                <p className="text-center text-md font-semibold font-cabin" >Avanti</p>
               </button>
             </>
           ):(
-            <NotFound message="No story found" />
+            <NotFound message="Non abbiamo trovato storie per te :(" />
           )}
         </div>
       </div>
