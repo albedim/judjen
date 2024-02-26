@@ -307,7 +307,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                           story={story} />
                       ))
                     ):(
-                      <NotFound message="Non riusciamo a caricare le storie di questo utente"/>
+                      <NotFound message="Non sono state trovate storie per questo utente"/>
                     )}
                   </div>
                 ):(
@@ -326,7 +326,7 @@ const UserPage: React.FC<UserPageProps> = ( props ) => {
                             story={story} />
                         ))
                       ):(
-                        <NotFound message="Non riusciamo a caricare le storie di questo utente"/>
+                        <NotFound message="Non sono state trovate storie per questo utente"/>
                       )}
                     </div>
                   ):(
