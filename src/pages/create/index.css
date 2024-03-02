@@ -1,0 +1,9 @@
+.iw {
+    width: 415px;
+}
+
+@media screen and (max-width: 700px) {
+    .iw{
+        width: 314px !important;
+    }
+}

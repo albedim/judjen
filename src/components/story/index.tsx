@@ -70,7 +70,7 @@ const StoryComponent: React.FC<StoryProps> = ( props ) => {
           </div>
       </div>
       <div className="mt-4">
-        <p style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }} >{props.story.content}</p>
+        <p dangerouslySetInnerHTML={{ __html: props.story.content }} style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }} ></p>
       </div>
       <div className="mt-6 gap-14 flex">
         {isRepostLoading ? (

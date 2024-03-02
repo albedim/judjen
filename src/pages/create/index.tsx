@@ -7,7 +7,9 @@ import { MdCancel } from "react-icons/md"
 import { Link, useNavigate } from "react-router-dom"
 import { BASE_URL, getCookie, isLoggedIn } from "../../utils/api"
 import { Topic } from "../../typos/interfaces"
+import './index.css'
 import { SpinnerCircular } from "spinners-react"
+import CustomTextArea from "../../components/custom_textarea"
 
 const Create = () => {
 
@@ -19,6 +21,7 @@ const Create = () => {
     content: ''
   })
   const navigate = useNavigate()
+  const [contentLength, setContentLength] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
  
   const addTopic = (topicId: string) => {
@@ -90,36 +93,39 @@ const Create = () => {
       <div>
         <div className="mt-2">
           <div><label className="font-cabin" htmlFor="title">Titolo</label></div>
-          <div className="mt-1"><input onChange={(e) => handleStory(e)} name="title" value={story.title} placeholder="Questa è la mia prima storia..." className="w-64 rounded-md p-2 border" type="text" /></div>
+          <div className="mt-1"><input onChange={(e) => handleStory(e)} name="title" value={story.title} placeholder="Questa è la mia prima storia..." className="iw rounded-md p-2 border" type="text" /></div>
         </div>
         <div className="mt-2">
           <div><label className="font-cabin" htmlFor="content">Contenuto</label></div>
-          <div className="mt-1"><textarea onChange={(e) => handleStory(e)} name="content" value={story.content} placeholder="Ogni giorno amo sempre di più leggere storie cringe" className="w-64 h-44 rounded-md p-2 border" /></div>
-          <div className="justify-between items-center flex">
-            <div></div>
-            <p className="font-cabin mt-1 text-sm">{
-              story.content.length > 1500 ? (
-                <span className="text-[red]">{story.content.length}</span>
-              ):(
-                <span>{story.content.length}</span>
-              )}/1500
-            </p>
+          <div>
+            <CustomTextArea onContentChange={(value, length) => {
+              setStory({ ...story, content: value })
+              setContentLength(length)
+            }}/>
+            <div className="justify-between items-center flex">
+              <div></div>
+              <p className="font-cabin mt-1 text-sm">{
+                contentLength > 1500 ? (
+                  <span className="text-[red]">{contentLength}</span>
+                ):(
+                  <span>{contentLength}</span>
+                )}/1500
+              </p>
+            </div>
           </div>
         </div>
-        <div className="mt-2 flex">
-          {selectedTopics.map((topic => (
-            <div className="p-1">
-              <div className="items-center flex text-sm font-cabin text-[white] pr-2 p-1 pl-2 rounded-md bg-[#668AE4]">
-                <p>{topic.name}</p>
-                <MdCancel onClick={(e) => removeTopic(topic.tag_id.toString())} className="cursor-pointer ml-2"/>
-              </div>
-            </div>
-          )))}
-        </div>
         <div className="mt-2">
-          <div><label className="font-cabin" htmlFor="topics">Tipo</label></div>
-          <div className="mt-1">
-            <select onChange={(e) => addTopic(e.target.value)} className="w-64 bg-[white] rounded-md p-2 border" >
+          <div><label className="font-cabin" htmlFor="topics">Tipo (Max 3)</label></div>
+          <div className="iw items-center flex-wrap flex bg-[white] rounded-md p-2 border mt-1">
+            {selectedTopics.map((topic => (
+              <div className="p-1">
+                <div className="items-center flex text-sm font-cabin text-[white] pr-2 p-1 pl-2 rounded-md bg-[#668AE4]">
+                  <p>{topic.name}</p>
+                  <MdCancel onClick={(e) => removeTopic(topic.tag_id.toString())} className="cursor-pointer ml-2"/>
+                </div>
+              </div>
+            )))}
+            <select onChange={(e) => addTopic(e.target.value)} className="outline-none" >
               <option value={"null"}></option>
               {topics.map(topic => (
                 <option value={topic.tag_id}>{topic.name}</option>

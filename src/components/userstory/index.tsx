@@ -79,15 +79,11 @@ const UserStoryComponent: React.FC<UserStoryProps> = ( props ) => {
         <div className="mt-4">
           {props.story.content.length > 246 ? (
             <>
-              <p className="font-cabin" style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
-                {props.story.content.length > 246 ? props.story.content.substring(0, 246) + " ..." : props.story.content}
-                <span onClick={props.onOpen} className="ml-2 cursor-pointer underline font-semibold font-cabin">Mostra ancora</span>
-              </p>
+              <p dangerouslySetInnerHTML={{ __html: props.story.content.substring(0, 246) + " ..." }} className="font-cabin" style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}></p>
+              <span onClick={props.onOpen} className="ml-2 cursor-pointer underline font-semibold font-cabin">Mostra ancora</span>
             </>
           ):(
-            <p className="font-cabin" style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
-              {props.story.content}
-            </p>
+            <p dangerouslySetInnerHTML={{ __html: props.story.content }} className="font-cabin" style={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}></p>
           )}
         </div>
         <div className="bottom-4 story_bottom mt-6 gap-14 flex">
