@@ -112,7 +112,7 @@ const HomePage = () => {
       <LoginScreen/>
       <div className="flex justify-around mt-16 mlpage p-8">
         <div>
-          <div className="justify-between flex pb-4">
+          <div className="top-0 sticky justify-between flex pb-4">
             <Dropdown size={40} style={{ paddingLeft: "0px", fontWeight: 900, border: 'none', fontFamily: 'Cabin', backgroundColor: 'white' }} className="rounded-md bg-[white] text-xl font-cabin" label={storiesType.label} dismissOnClick={true}>
               {storiesTypes.map((storiesType) => (
                 <Dropdown.Item
@@ -133,6 +133,34 @@ const HomePage = () => {
                 </Dropdown.Item>
               ))}
             </Dropdown>
+            <div className="gap-4 pl-4 none-flex items-center">
+              <button onClick={() => {
+                setCurrIndex(currIndex - 1)
+                setTimeout(() => setAnimationLikes('goDown'), 0);
+                setTimeout(() => setAnimationLikes('waitUp'), 100);
+                setTimeout(() => setAnimationLikes('initial'), 200);
+              }} disabled={currIndex == 0} className="transition-all hover:hover:opacity-60 text-[#668AE4]">
+                <IoIosArrowDropup size={42}/>
+              </button>
+              <div className="font-cabin flex justify-around">
+                <p>{currIndex + 1}</p>
+              </div>
+              <button onClick={async () => {
+                if (currIndex == seenStories.length - 1) {
+                  if (storiesType.name == 'foryou') {
+                    await getStory()
+                  } else {
+                    await getFriendStory()
+                  }
+                }
+                setCurrIndex(currIndex + 1)
+                setTimeout(() => setAnimationLikes('goUp'), 0);
+                setTimeout(() => setAnimationLikes('waitDown'), 100);
+                setTimeout(() => setAnimationLikes('initial'), 200);
+              }} className="transition-all hover:hover:opacity-60 text-[#668AE4]">
+                <IoIosArrowDropdown size={42}/>
+              </button>
+            </div>
           </div>
           <div className="flex pl-0 p-4">
             <div className="flex">
@@ -141,7 +169,7 @@ const HomePage = () => {
               ):(
                 <NotFound message="Non abbiamo trovato storie per te :(" />
               )}
-              <div className="pl-4 h-96 flex items-center">
+              <div className="flex-none pl-4 h-96 items-center">
                 <div>
                   <button onClick={() => {
                     setCurrIndex(currIndex - 1)
