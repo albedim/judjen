@@ -1,6 +1,6 @@
 import Avatar from "boring-avatars"
 import { Story, Topic } from "../../typos/interfaces"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { BASE_URL, getCookie } from "../../utils/api"
 import axios from "axios"
 import { Link } from "react-router-dom"
@@ -12,11 +12,13 @@ import { formatDate } from "../../utils/dates"
 interface StoryProps{
   onRepost: (created: boolean) => void
   onFavorite: (created: boolean) => void
-  story: Story
+  story: Story,
+  className?: string
 }
 
 const StoryComponent: React.FC<StoryProps> = ( props ) => {
 
+  const [style, setStyle] = useState<string>("")
   const [isRepostLoading, setIsRepostLoading] = useState(false)
   const [isFavoriteLoading, setIsFavoriteLoading] = useState(false)
 
@@ -36,8 +38,13 @@ const StoryComponent: React.FC<StoryProps> = ( props ) => {
     setIsFavoriteLoading(false)
   }
 
+  
+  useEffect(() => {
+    setStyle("bg-[#fcfcfc] story_width p-4 rounded-md border " + props.className)
+  },[props.className])
+
   return(
-    <div className="bg-[#fcfcfc] story_width p-4 rounded-md border">
+    <div style={{ display: 'block' }} className={style}>
       <div className="items-center justify-between flex">
         <div className="flex">
           {props.story.topics.map((topic: Topic) => (
