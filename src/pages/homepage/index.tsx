@@ -46,6 +46,12 @@ const getStoriesTypeFromName = (name: string) => {
 const HomePage = () => {
 
   const [seenStories, setSeenStories] = useState<Story[]>([])
+  const [currentStoryData, setCurrentStoryData] = useState({
+    favorited: false,
+    setFavorites: 0,
+    reposted: false,
+    setReposts: 0
+  })
   const [currIndex, setCurrIndex] = useState<number>(0)
   const [animationLikes, setAnimationLikes] = useState('initial');
   const navigate = useNavigate()
@@ -56,6 +62,7 @@ const HomePage = () => {
     await axios.get(BASE_URL + "/stories/", { headers: { Authorization: 'Bearer ' + getCookie('jwt-token') } })
     .then(res => {
       setSeenStories([...seenStories, res.data.param])
+      setDataToStory(res.data.param)
     })
     .catch(err => console.log(err))
   }
@@ -64,31 +71,39 @@ const HomePage = () => {
     await axios.get(BASE_URL + "/stories/friends", { headers: { Authorization: 'Bearer ' + getCookie('jwt-token') } })
     .then(res => {
       setSeenStories([...seenStories, res.data.param])
+      setDataToStory(res.data.param)
     })
     .catch(err => console.log(err))
   }
 
+  const setDataToStory = (data: any) => {
+    setCurrentStoryData({
+      favorited: data.favorited,
+      setFavorites: data.favorites,
+      reposted: data.reposted,
+      setReposts: data.reposts
+    })
+  }
+
   const repost = async (created: boolean) => {
-    const currentStory = seenStories[seenStories.length - 1]
+    const currentStory = seenStories[currIndex]
+    console.log(seenStories)
     const newCurrentStory = { ...currentStory, reposted: created, reposts: created ? currentStory.reposts + 1 : currentStory.reposts - 1 }
-    setSeenStories([
-      ...seenStories,
-      newCurrentStory
-    ])
+    const newSeenStories = seenStories;
+    newSeenStories[currIndex] = newCurrentStory
+    setSeenStories(newSeenStories)
+    setDataToStory(newCurrentStory)
   }
 
   const favorite = async (created: boolean) => {
-    const currentStory = seenStories[seenStories.length - 1]
-    const newCurrentStory = { ...currentStory, favorited: created, favorites: created ? currentStory.favorites + 1 : currentStory.favorites - 1 }
-    setSeenStories([
-      ...seenStories,
-      newCurrentStory
-    ])
-  }
-
-  useEffect(() => {
+    const currentStory = seenStories[currIndex]
     console.log(seenStories)
-  },[seenStories])
+    const newCurrentStory = { ...currentStory, favorited: created, favorites: created ? currentStory.favorites + 1 : currentStory.favorites - 1 }
+    const newSeenStories = seenStories;
+    newSeenStories[currIndex] = newCurrentStory
+    setSeenStories(newSeenStories)
+    setDataToStory(newCurrentStory)
+  }
 
   useEffect(() => {
     handleAuth()
@@ -136,6 +151,7 @@ const HomePage = () => {
             <div className="gap-4 pl-4 none-flex items-center">
               <button onClick={() => {
                 setCurrIndex(currIndex - 1)
+                setDataToStory(seenStories[currIndex])
                 setTimeout(() => setAnimationLikes('goDown'), 0);
                 setTimeout(() => setAnimationLikes('waitUp'), 100);
                 setTimeout(() => setAnimationLikes('initial'), 200);
@@ -154,6 +170,7 @@ const HomePage = () => {
                   }
                 }
                 setCurrIndex(currIndex + 1)
+                setDataToStory(seenStories[currIndex])
                 setTimeout(() => setAnimationLikes('goUp'), 0);
                 setTimeout(() => setAnimationLikes('waitDown'), 100);
                 setTimeout(() => setAnimationLikes('initial'), 200);
@@ -173,6 +190,7 @@ const HomePage = () => {
                 <div>
                   <button onClick={() => {
                     setCurrIndex(currIndex - 1)
+                    setDataToStory(seenStories[currIndex])
                     setTimeout(() => setAnimationLikes('goDown'), 0);
                     setTimeout(() => setAnimationLikes('waitUp'), 100);
                     setTimeout(() => setAnimationLikes('initial'), 200);
@@ -191,6 +209,7 @@ const HomePage = () => {
                       }
                     }
                     setCurrIndex(currIndex + 1)
+                    setDataToStory(seenStories[currIndex])
                     setTimeout(() => setAnimationLikes('goUp'), 0);
                     setTimeout(() => setAnimationLikes('waitDown'), 100);
                     setTimeout(() => setAnimationLikes('initial'), 200);
