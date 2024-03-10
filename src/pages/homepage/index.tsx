@@ -127,7 +127,7 @@ const HomePage = () => {
       <LoginScreen/>
       <div className="flex justify-around mt-16 mlpage p-8">
         <div>
-          <div className="top-0 sticky justify-between flex pb-4">
+          <div className="z-40 top-0 sticky justify-between flex pb-4">
             <Dropdown size={40} style={{ paddingLeft: "0px", fontWeight: 900, border: 'none', fontFamily: 'Cabin', backgroundColor: 'white' }} className="rounded-md bg-[white] text-xl font-cabin" label={storiesType.label} dismissOnClick={true}>
               {storiesTypes.map((storiesType) => (
                 <Dropdown.Item
