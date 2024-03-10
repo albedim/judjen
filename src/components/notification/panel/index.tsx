@@ -10,7 +10,8 @@ import NotFound from "../../notfound"
 
 interface NavBarNotificationPanelProps{
   notifications: Notification[],
-  onRead: () => void
+  onRead: () => void,
+  onClose: () => void
 }
 
 const NavBarNotificationPanel: React.FC<NavBarNotificationPanelProps> = ( props ) => {
@@ -28,7 +29,7 @@ const NavBarNotificationPanel: React.FC<NavBarNotificationPanelProps> = ( props 
   }
 
   return(
-    <div className="z-20 absolute w-screen h-screen">
+    <div onClick={props.onClose} className="bg-[gray] bg-opacity-10 z-50 absolute w-screen h-screen">
       <div className="pr-0 fixed mt-20 right-4 bg-[white] rounded-md border p-4">
         <div className="mr-4 justify-between flex pb-2 border-b">
           <p className="font-semibold text-lg font-cabin">Notifiche</p>

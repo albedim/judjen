@@ -40,7 +40,7 @@ const NavBar = () => {
 
   return(
     <>
-      <div className="pb-4 pt-4 pr-8 pl-8 justify-between bg-[white] z-30 fixed border-b w-screen flex">
+      <div className="pb-4 pt-4 pr-8 pl-8 justify-between bg-[white] z-40 fixed border-b w-screen flex">
         <div></div>
         <div className="gap-6 flex">
           <NavBarNotificationIcon onClick={() => setIsNotificationsPanelVisible((prv) => !prv)} unread_notifications={unReadNotifications} notifications={[]}/>
@@ -55,7 +55,7 @@ const NavBar = () => {
         </div>
       </div>
       {isNotificationsPanelVisible ? (
-        <NavBarNotificationPanel onRead={() => getNotifications(user.user_id)} notifications={notifications}/>
+        <NavBarNotificationPanel onClose={() => setIsNotificationsPanelVisible(false)} onRead={() => getNotifications(user.user_id)} notifications={notifications}/>
       ):null}
     </>
   )
