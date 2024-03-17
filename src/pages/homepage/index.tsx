@@ -16,6 +16,7 @@ import { IoIosArrowDropdown, IoIosArrowDropup, IoIosArrowForward, IoIosArrowUp }
 import { Dropdown } from "flowbite-react"
 import { IoPeopleCircleOutline, IoPeopleSharp } from "react-icons/io5"
 import NavBar from "../../components/navbar"
+import LimitScreen from "../../components/limit_screen"
 
 const storiesTypes = [
   {
@@ -52,6 +53,7 @@ const HomePage = () => {
     reposted: false,
     setReposts: 0
   })
+  const [availableStories, setAvailableStories] = useState()
   const [currIndex, setCurrIndex] = useState<number>(0)
   const [animationLikes, setAnimationLikes] = useState('initial');
   const navigate = useNavigate()
@@ -61,8 +63,9 @@ const HomePage = () => {
   const getStory = async () => {
     await axios.get(BASE_URL + "/stories/", { headers: { Authorization: 'Bearer ' + getCookie('jwt-token') } })
     .then(res => {
-      setSeenStories([...seenStories, res.data.param])
-      setDataToStory(res.data.param)
+      setSeenStories([...seenStories, res.data.param.story])
+      setDataToStory(res.data.param.story)
+      setAvailableStories(res.data.param.available_stories)
     })
     .catch(err => console.log(err))
   }
@@ -70,8 +73,9 @@ const HomePage = () => {
   const getFriendStory = async () => {
     await axios.get(BASE_URL + "/stories/friends", { headers: { Authorization: 'Bearer ' + getCookie('jwt-token') } })
     .then(res => {
-      setSeenStories([...seenStories, res.data.param])
-      setDataToStory(res.data.param)
+      setSeenStories([...seenStories, res.data.param.story])
+      setDataToStory(res.data.param.story)
+      setAvailableStories(res.data.param.available_stories)
     })
     .catch(err => console.log(err))
   }
@@ -125,6 +129,9 @@ const HomePage = () => {
   return (
     <div className="w-screen">
       <LoginScreen/>
+      {availableStories == 0 ? (
+        <LimitScreen/>
+      ): null}
       <div className="flex justify-around mt-16 mlpage p-8">
         <div>
           <div className="z-40 top-0 sticky justify-between flex pb-4">
@@ -198,7 +205,7 @@ const HomePage = () => {
                     <IoIosArrowDropup size={42}/>
                   </button>
                   <div className="font-cabin flex justify-around">
-                    <p>{currIndex + 1}</p>
+                    <p>{availableStories}</p>
                   </div>
                   <button onClick={async () => {
                     if (currIndex == seenStories.length - 1) {

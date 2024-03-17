@@ -12,6 +12,7 @@ import RecoverPasswordScreen from './components/recover_password_screen';
 import CreatePasswordScreen from './components/create_password_screen';
 import Layout from './components/layout';
 import Page from './pages/page';
+import NotFoundPage from './pages/not_found_page';
 
 function App() {
   return (
@@ -57,6 +58,10 @@ function App() {
         <Route 
           path="/account" 
           element={<Layout sideBarPage='account' ><HomePage/></Layout>} 
+        />
+        <Route 
+          path="/*" 
+          element={<NotFoundPage/>} 
         />
       </Routes>
     </BrowserRouter>

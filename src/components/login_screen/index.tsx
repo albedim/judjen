@@ -140,7 +140,7 @@ const LoginScreen = () => {
   if (loggedIn != undefined && !loggedIn) {
     if (page == 'signin') {
       return(
-        <div className="z-50 items-center justify-around flex backdrop-blur-sm absolute h-screen w-screen">
+        <div className="top-0 z-50 items-center justify-around flex backdrop-blur-sm fixed h-screen w-screen">
           <div className="border p-4 rounded-md bg-[white]">
             <div className="pb-2 border-b">
               <h2 className="font-semibold text-xl font-cabin">Accedi</h2>

@@ -1,11 +1,13 @@
 import Avatar from "boring-avatars"
 import { useEffect, useState } from "react"
-import { BASE_URL, getUser, isLoggedIn } from "../../utils/api"
+import { BASE_URL, getCookie, getUser, isLoggedIn } from "../../utils/api"
 import { IoNotificationsOutline } from "react-icons/io5"
 import NavBarNotificationIcon from "../notification/navbar_icon"
 import NavBarNotificationPanel from "../notification/panel"
 import axios from "axios"
 import { Notification } from "../../typos/interfaces"
+import { useNavigate } from "react-router-dom"
+import { jwtDecode } from "jwt-decode"
 
 const NavBar = () => {
   
@@ -14,7 +16,8 @@ const NavBar = () => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [isNotificationsPanelVisible, setIsNotificationsPanelVisible] = useState(false)
   const [user, setUser] = useState<any>()
-  
+  const navigate = useNavigate()
+
   useEffect(() => {
     handleAuth()
   },[])
@@ -37,6 +40,12 @@ const NavBar = () => {
     })
     .catch(err => console.log(err))
   }
+  
+  const redirectToUserAccount = async () => {
+    const token: any = getCookie("jwt-token")
+    const userId = jwtDecode<any>(token).sub.user_id
+    navigate("/user/" + userId)
+  }
 
   return(
     <>
@@ -44,7 +53,7 @@ const NavBar = () => {
         <div></div>
         <div className="gap-6 flex">
           <NavBarNotificationIcon onClick={() => setIsNotificationsPanelVisible((prv) => !prv)} unread_notifications={unReadNotifications} notifications={[]}/>
-          <button>
+          <button onClick={redirectToUserAccount}>
             <Avatar
               size={42}
               name={user?.anonymous_name}

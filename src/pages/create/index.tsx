@@ -87,8 +87,9 @@ const Create = () => {
 
   return (
     <div className="mt-16 mlpage p-8">
-      <div className="pb-4">
+      <div style={{ maxWidth: 414 }} className="pb-4">
         <h1 className="text-xl font-semibold font-cabin" >Crea una storia</h1>
+        <p className="text-[gray] font-cabin mt-1">Creando una storia hai più possibilità di farti conoscere dagli altri utenti e diventare popolare, ricordati che ogni storia che crei ti permette di leggere 10 storie in più</p>
       </div>
       <div>
         <div className="mt-2">
