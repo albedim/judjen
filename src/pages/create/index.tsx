@@ -16,10 +16,8 @@ const Create = () => {
   const [selectedTopics, setSelectedTopics] = useState<Topic[]>([])
   const [availableTopics, setAvailableTopics] = useState<Topic[]>([])
   const [topics, setTopics] = useState<Topic[]>([])
-  const [story, setStory] = useState({
-    title: '',
-    content: ''
-  })
+  const [storyTitle, setStoryTitle] = useState("")
+  const [storyContent, setStoryContent] = useState("")
   const navigate = useNavigate()
   const [contentLength, setContentLength] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
@@ -64,15 +62,9 @@ const Create = () => {
     getTopics()
   },[])
 
-  const handleStory = (e: any) => {
-    const newStory: any = { ...story }
-    newStory[e.target.name] = e.target.value
-    setStory(newStory)
-  }
-
   const createStory = async () => {
     setIsLoading(true)
-    await axios.post(BASE_URL + "/stories/", { ...story, topics: selectedTopics }, { headers: { Authorization: 'Bearer ' + getCookie("jwt-token") } })
+    await axios.post(BASE_URL + "/stories/", { title: storyTitle, content: storyContent, topics: selectedTopics }, { headers: { Authorization: 'Bearer ' + getCookie("jwt-token") } })
     .then(res => console.log())
     .catch(err => console.log(err))
     setIsLoading(false)
@@ -94,13 +86,13 @@ const Create = () => {
       <div>
         <div className="mt-2">
           <div><label className="font-cabin" htmlFor="title">Titolo</label></div>
-          <div className="mt-1"><input onChange={(e) => handleStory(e)} name="title" value={story.title} placeholder="Questa è la mia prima storia..." className="iw rounded-md p-2 border" type="text" /></div>
+          <div className="mt-1"><input onChange={(e) => setStoryTitle(e.target.value)} name="title" value={storyTitle} placeholder="Questa è la mia prima storia..." className="iw rounded-md p-2 border" type="text" /></div>
         </div>
         <div className="mt-2">
           <div><label className="font-cabin" htmlFor="content">Contenuto</label></div>
           <div>
             <CustomTextArea onContentChange={(value, length) => {
-              setStory({ ...story, content: value })
+              setStoryContent(value)
               setContentLength(length)
             }}/>
             <div className="justify-between items-center flex">
@@ -116,7 +108,7 @@ const Create = () => {
           </div>
         </div>
         <div className="mt-2">
-          <div><label className="font-cabin" htmlFor="topics">Tipo (Max 3)</label></div>
+          <div><label className="font-cabin" htmlFor="topics">Tipo {selectedTopics.length}/3</label></div>
           <div className="iw items-center flex-wrap flex bg-[white] rounded-md p-2 border mt-1">
             {selectedTopics.map((topic => (
               <div className="p-1">
@@ -135,7 +127,7 @@ const Create = () => {
           </div>
         </div>
         <div className="mt-8">
-          { selectedTopics.length > 0 && story.title != "" && story.content.length > 0 && story.content.length < 1500 ? (
+          { selectedTopics.length > 0 && storyTitle != "" && storyContent.length > 0 && storyContent.length < 1500 ? (
               isLoading ? (
                 <button disabled className="rounded-md text-[white] font-cabin bg-[#668AE4] pr-6 pl-6 p-3" >
                   <SpinnerCircular
