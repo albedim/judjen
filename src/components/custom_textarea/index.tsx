@@ -143,7 +143,7 @@ const CustomTextArea: React.FC<CustomAreaProps> = ( props ) => {
         )}
         <button onClick={() => handleAddLink()}><BiLink/></button>
       </div>
-      <div className='rounded-b-md border p-6 w-full' style={{ height: '200px' }}>
+      <div className='overflow-y-scroll rounded-b-md border p-6 w-full' style={{ height: '200px' }}>
         <Editor
           ref={editorRef}
           placeholder='Questa è la storia più cringe che abbia mai raccontato...'
