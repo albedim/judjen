@@ -53,7 +53,6 @@ const HomePage = () => {
     reposted: false,
     setReposts: 0
   })
-  const [availableStories, setAvailableStories] = useState()
   const [currIndex, setCurrIndex] = useState<number>(0)
   const [animationLikes, setAnimationLikes] = useState('initial');
   const navigate = useNavigate()
@@ -65,7 +64,6 @@ const HomePage = () => {
     .then(res => {
       setSeenStories([...seenStories, res.data.param.story])
       setDataToStory(res.data.param.story)
-      setAvailableStories(res.data.param.available_stories)
     })
     .catch(err => console.log(err))
   }
@@ -129,9 +127,6 @@ const HomePage = () => {
   return (
     <div className="w-screen">
       <LoginScreen/>
-      {availableStories == 0 ? (
-        <LimitScreen/>
-      ): null}
       <div className="flex justify-around mt-16 mlpage p-8">
         <div>
           <div className="z-40 top-0 sticky justify-between flex pb-4">
