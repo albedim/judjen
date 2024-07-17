@@ -73,7 +73,6 @@ const HomePage = () => {
     .then(res => {
       setSeenStories([...seenStories, res.data.param.story])
       setDataToStory(res.data.param.story)
-      setAvailableStories(res.data.param.available_stories)
     })
     .catch(err => console.log(err))
   }
