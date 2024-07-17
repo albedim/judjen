@@ -160,7 +160,7 @@ const HomePage = () => {
                 <IoIosArrowDropup size={42}/>
               </button>
               <div className="font-cabin flex justify-around">
-                <p>{availableStories}</p>
+                <p>{currIndex + 1}</p>
               </div>
               <button onClick={async () => {
                 if (currIndex == seenStories.length - 1) {
@@ -199,7 +199,7 @@ const HomePage = () => {
                     <IoIosArrowDropup size={42}/>
                   </button>
                   <div className="font-cabin flex justify-around">
-                    <p>{availableStories}</p>
+                    <p>{currIndex + 1}</p>
                   </div>
                   <button onClick={async () => {
                     if (currIndex == seenStories.length - 1) {
